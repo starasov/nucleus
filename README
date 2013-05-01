@@ -1,6 +1,6 @@
-= Project Structure Overview =
+Project Structure Overview
+==========================
 
-
-* .etc - contains miscelaneous files, including mockups, sample apps and prototypes;
+* .etc - contains miscellaneous files, including mockups, sample apps and prototypes;
 * doc - contains project documentation, todos and other notes;
-* nucleus-web - contains web part of Nucleus project;
+* nucleus-web - contains web portion of Nucleus project;
