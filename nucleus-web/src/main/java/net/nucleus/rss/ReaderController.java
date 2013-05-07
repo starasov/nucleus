@@ -16,8 +16,8 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/dashboard")
-public class DashboardController {
-    private static final Logger logger = LoggerFactory.getLogger(DashboardController.class);
+public class ReaderController {
+    private static final Logger logger = LoggerFactory.getLogger(ReaderController.class);
 
     @RequestMapping("/")
     public ModelAndView latest() {

@@ -1,0 +1,25 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1161" measuredH="778" mockupW="1079" mockupH="658">
+  <controls>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Canvas" x="82" y="120" w="1079" h="658" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::DataGrid" x="324" y="139" w="822" h="624" measuredW="472" measuredH="575" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>false</bold>
+        <borderStyle>square</borderStyle>
+        <hasHeader>false</hasHeader>
+        <hLines>false</hLines>
+        <size>14</size>
+        <text>So%20You%20Don%27t%20Want%20to%20be%20a%20Programmer%20After%20All%0APiled%20Higher%20and%20Deeper%20the%20movie%20%5Bvideo%5D%0AJS1K%202013%20winning%20entry%20explained%0AIs%20Web%20Design%20All%20About%20Hacking%20or%20Kludging%3F%0AThe%20most%20incredible%20time-lapse%20video%20I%u2019ve%20ever%20seen.%0AThe%20Lies%20You%27ve%20Been%20Told%20About%20the%20Origin%20of%20the%20QWERTY%20Keyboard%0AGoogle%20Glass%20on%20Saturday%20Night%20Live%0AThe%20Feynman%20File%20%282005%29%0AShow%20HN%3A%20Create%20DIY%20tutorials%20and%20share%20them%20on%20Pinterest%20from%20iPhone%0ACarriers%20Still%20Think%20We%u2019re%20Idiots%0AGoPar%3A%20Automatic%20Loop%20Parallelization%20of%20Go%20Programs%0AA%20home%20made%20periodic%20table%0AClient%20Side%20Cryptography%20-%20Should%20You%20Hash%20Passwords%20on%20the%20Client%0AWhat%20Worries%20Scientists%0AGetting%20E-Mail%20right%20with%20Django%20and%20SES%0AWater%20Planets%20in%20the%20Habitable%20Zone%0AManage.py%20a%20human%20friendly%20CLI%20builder%20for%20python%20apps%0ADean%20Baker%27s%20Negative%20Take%20On%20Patents%20In%20Medicine%0AThere%20Is%20In%20Fact%20A%20Tech-Talent%20Shortage%20And%20There%20Always%20Will%20Be</text>
+        <value>20</value>
+        <verticalScrollbar>true</verticalScrollbar>
+        <vLines>false</vLines>
+      </controlProperties>
+    </control>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::Tree" x="97" y="139" w="227" h="623" measuredW="300" measuredH="285" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>v%20Programming%0A%09-%20Python%20News%0A%09-%20Hacker%20News%0A%09-%20The%20Django%20Weblog%0Av%20Fun%0A%09v%20LOL%20Catz%0A%09%09-%20Urban%20Word%20of%20The%20Day%0A%09%09-%20Bash.org%0A%09%09-%20xkcd.com%0A%09-%20Dirty.ru%0A%09-%20The%20Daily%20WTF%0A%09-%20Geek%20and%20Poke%0A%3E%20Podcasts</text>
+      </controlProperties>
+    </control>
+    <control controlID="24" controlTypeID="com.balsamiq.mockups::VSplitter" x="571" y="120" w="-1" h="-1" measuredW="100" measuredH="11" zOrder="3" locked="false" isInGroup="-1"/>
+    <control controlID="27" controlTypeID="com.balsamiq.mockups::VerticalScrollBar" x="308" y="139" w="-1" h="624" measuredW="16" measuredH="100" zOrder="4" locked="false" isInGroup="-1"/>
+  </controls>
+</mockup>

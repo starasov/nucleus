@@ -1,6 +1,29 @@
-Project Structure Overview
-==========================
+Description
+===========
 
-* .etc - contains miscellaneous files, including mockups, sample apps and prototypes;
-* doc - contains project documentation, todos and other notes;
-* nucleus-web - contains web portion of Nucleus project;
+Nucleus is another RSS news reader project. Main goal of the project is to create sustainable replacement for
+old Google reader application.
+
+Structure Overview
+==================
+
+/.etc - contains miscellaneous files, including mockups, sample apps and prototypes;
+/doc - contains project documentation, todos and other notes;
+/nucleus-web - contains web portion of Nucleus project;
+
+Milestones
+==========
+
+M1
+--
+
+M110 - User accounts registration.
+M120 - Reader pane with feeds and navigation.
+M130 - Import/export functionality.
+M140 - Settings pane.
+
+M2
+--
+
+M210 - Feeds ranking.
+M220 - Full text search and indexing.
