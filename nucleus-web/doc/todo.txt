@@ -1,0 +1,18 @@
+UI
+==
+
+Mockups
+-------
+
+* Feeds tree.
+* Custom scroller for feeds tree.
+
+DONE - Tools bar for feed settings and feed info.
+DONE - Add styles to the scroller.
+DONE -  Custom scroller for feed entries.
+
+Backend
+=======
+
+1. ???
+
