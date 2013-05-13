@@ -17,6 +17,7 @@ Project Naming Conventions
 --------------------------
 
 * Please follow ex-Sun Java naming conventions.
+* Consistency is important, so please write documentation for non-obvious parts.
 
 Libraries, Frameworks And Tools
 -------------------------------
