@@ -4,26 +4,46 @@ Description
 Nucleus is another RSS news reader project. Main goal of the project is to create sustainable replacement for
 old Google reader application.
 
-Structure Overview
-==================
+Project Details
+===============
 
-/.etc - contains miscellaneous files, including mockups, sample apps and prototypes;
-/doc - contains project documentation, todos and other notes;
+Structure Overview
+------------------
+
 /nucleus-web - contains web portion of Nucleus project;
+/nucleus-web/etc - contains miscellaneous files, including mockups, sample apps and prototypes, todos, etc.;
+
+Project Naming Conventions
+--------------------------
+
+* Please follow ex-Sun Java naming conventions.
+
+Libraries, Frameworks And Tools
+-------------------------------
+
+* Spring and Spring MVC for middleware layer;
+* JPA? for backend + Hibernate?;
+* JSP for frontend:
+    * JQuery + plugins;
+    * Twitter Bootstrap;
+    * AngularJS?;
+* RSS ops:
+    * ROME;
 
 Milestones
-==========
+----------
 
 M1
---
+^^
 
 M110 - User accounts registration.
 M120 - Reader pane with feeds and navigation.
 M130 - Import/export functionality.
 M140 - Settings pane.
+M150 - Welcome screen
 
 M2
---
+^^
 
 M210 - Feeds ranking.
 M220 - Full text search and indexing.
