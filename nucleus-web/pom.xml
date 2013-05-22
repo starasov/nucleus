@@ -10,10 +10,12 @@
 
     <properties>
         <!-- Keep dependency versions here -->
-        <junit.version>4.11</junit.version>
         <spring.version>3.2.2.RELEASE</spring.version>
+        <hibernate.version>4.2.1.Final</hibernate.version>
         <slf4j.version>1.7.5</slf4j.version>
         <rome.version>1.0</rome.version>
+        <junit.version>4.11</junit.version>
+        <jstl.version>1.2</jstl.version>
     </properties>
 
     <dependencies>
@@ -22,6 +24,14 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>${slf4j.version}</version>
+        </dependency>
+
+        <!-- JSTL library -->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+            <!--<scope>provided</scope>-->
         </dependency>
 
         <!-- Apache commons, Guava and other sugar libraries goes here -->
@@ -37,10 +47,35 @@
             <version>14.0.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.intellij</groupId>
+            <artifactId>annotations</artifactId>
+            <version>5.1</version>
+        </dependency>
+
+        <!-- Persistence -->
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.1-901-1.jdbc4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
         <!-- Spring parts and dependencies -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
         </dependency>
 
@@ -56,10 +91,23 @@
             <version>${spring.version}</version>
         </dependency>
 
+        <!-- HTML sanitizer -->
+        <dependency>
+            <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
+            <artifactId>owasp-java-html-sanitizer</artifactId>
+            <version>r136</version>
+        </dependency>
+
         <!-- Finally! RSS parsing library -->
         <dependency>
             <groupId>rome</groupId>
             <artifactId>rome</artifactId>
+            <version>${rome.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.rometools</groupId>
+            <artifactId>rome-opml</artifactId>
             <version>${rome.version}</version>
         </dependency>
 
@@ -84,4 +132,5 @@
             <url>http://repo.springsource.org/release</url>
         </repository>
     </repositories>
+
 </project>

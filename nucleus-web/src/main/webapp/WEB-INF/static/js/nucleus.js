@@ -3,6 +3,7 @@ var Nucleus = {
         this.fitScreen();
         this.initializeScroller();
         this.listenWindowResize();
+        this.registerEntriesListener();
     },
 
     fitScreen: function () {
@@ -16,10 +17,16 @@ var Nucleus = {
 
     initializeScroller: function () {
         var scrollPane = $('.scroll-pane');
-        var width = scrollPane.width();
 
-        scrollPane.css({'width': (width + 18) + 'px'});
-        scrollPane.jScrollPane();
+//        TODO: probably useless
+//        var width = scrollPane.width();
+//        scrollPane.css({'width': (width + 18) + 'px'});
+
+        scrollPane.jScrollPane({
+            contentWidth: '0px', // hides horizontal scroll
+            hideFocus: true, // hides yellow border when focused
+            mouseWheelSpeed: 50 // speeds up scrolling speed, so it's not so annoooooying
+        });
     },
 
     listenWindowResize: function () {
@@ -27,6 +34,13 @@ var Nucleus = {
             Nucleus.fitScreen();
             Nucleus.initializeScroller();
         })
+    },
+
+    registerEntriesListener: function () {
+        $('.feed-entry').click(function () {
+            $(this).find('.feed-entry-long').toggle();
+            Nucleus.initializeScroller();
+        });
     }
 };
 

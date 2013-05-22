@@ -1,5 +1,6 @@
 package net.nucleus.rss.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -7,13 +8,49 @@ import java.util.Date;
  * Date: 5/1/13
  * Time: 8:18 PM
  */
+@Entity
+@Table(name = "feed_entries")
 public class FeedEntry {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Outline feed;
+
+    @Column(length = 1024)
     private String title;
-    private String shortDescription;
+
+    @Column(length = 8192)
     private String fullDescription;
+
+    @Column(length = 8192)
+    private String shortDescription;
+
+    @Column(length = 1024)
     private String externalUrl;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date publicationDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date entryTimestamp;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Outline getFeed() {
+        return feed;
+    }
+
+    public void setFeed(Outline feed) {
+        this.feed = feed;
+    }
 
     public String getTitle() {
         return title;
@@ -23,20 +60,20 @@ public class FeedEntry {
         this.title = title;
     }
 
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
-
     public String getFullDescription() {
         return fullDescription;
     }
 
     public void setFullDescription(String fullDescription) {
         this.fullDescription = fullDescription;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 
     public String getExternalUrl() {
@@ -55,16 +92,12 @@ public class FeedEntry {
         this.publicationDate = publicationDate;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("FeedEntry");
-        sb.append("{title='").append(title).append('\'');
-        sb.append(", shortDescription='").append(shortDescription).append('\'');
-        sb.append(", fullDescription='").append(fullDescription).append('\'');
-        sb.append(", externalUrl='").append(externalUrl).append('\'');
-        sb.append(", publicationDate=").append(publicationDate);
-        sb.append('}');
-        return sb.toString();
+    public Date getEntryTimestamp() {
+        return entryTimestamp;
+    }
+
+    @PrePersist
+    public void updateTimeStamps() {
+        entryTimestamp = new Date();
     }
 }

@@ -1,4 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 
 <spring:url value="/static" var="resources" htmlEscape="true"/>
 
@@ -67,209 +70,88 @@
 </div>
 
 <div class="container-fluid">
-<div class="row-fluid">
+    <div class="row-fluid">
 
-<div class="span2">
-    <div class="well sidebar-nav">
-        <ul class="nav nav-list">
-            <li class="nav-header">Sidebar</li>
-            <li class="active"><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li class="nav-header">Sidebar</li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li class="nav-header">Sidebar</li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-        </ul>
-    </div>
-</div>
+        <div class="span2">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Sidebar</li>
+                    <li class="active"><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li class="nav-header">Sidebar</li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li class="nav-header">Sidebar</li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                </ul>
+            </div>
+        </div>
 
-<div class="span10">
-    <div class="row-fluid navbar-entries-row">
-        <div class="navbar">
-            <div class="navbar-inner navbar-entries">
-                <div class="container-fluid">
-                    <a class="brand" href="#">Hacker News</a>
+        <div class="span10">
+            <div class="row-fluid navbar-entries-row">
+                <div class="navbar">
+                    <div class="navbar-inner navbar-entries">
+                        <div class="container-fluid">
+                            <a class="brand" href="${feed.htmlUrl}">${feed.title}</a>
 
-                    <ul class="nav pull-right">
-                        <li><a href="#"><i class="icon-repeat"></i> Refresh</a></li>
+                            <ul class="nav pull-right">
+                                <li><a href="#"><i class="icon-repeat"></i> Refresh</a></li>
 
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="icon-ok"></i> Mark As Read <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action1</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="icon-ok"></i> Mark As Read <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Action1</a></li>
+                                        <li><a href="#">Another action</a></li>
+                                        <li><a href="#">Something else here</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Separated link</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="icon-cog"></i> Settings <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Action</a></li>
+                                        <li><a href="#">Another action</a></li>
+                                        <li><a href="#">Something else here</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Separated link</a></li>
+                                    </ul>
+                                </li>
+
                             </ul>
-                        </li>
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="icon-cog"></i> Settings <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </li>
-
-                    </ul>
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+            <div class="span10 affix shadow-top" style="margin-left: -20px;"></div>
+
+            <div id="content" class="row-fluid scroll-pane">
+                <c:forEach var="e" items="${entries}">
+                    <div class="feed-entry" style="cursor: pointer;">
+                        <div class="feed-entry-short">
+                            <strong>${e.title}</strong> - ${e.shortDescription}
+                        </div>
+                        <div class="feed-entry-long"
+                             style="border-left: 1px solid #e3e3e3; margin-left: 20px; padding: 20px; display: none;">${e.fullDescription}</div>
+                    </div>
+                </c:forEach>
             </div>
         </div>
     </div>
-
-    <div class="span10 affix shadow-top" style="margin-left: -20px;"></div>
-
-    <div id="content" class="row-fluid scroll-pane">
-        <div class="feed-entry">
-            <strong>Writing a Windows 8 Game Loop</strong> - When developing games for
-            Windows 8 with C# it is not immediately clear how to construct a basic game loop. For other
-            Microsoft platforms XNA is the
-        </div>
-        <div class="feed-entry">
-            <strong>10 Ways to Make Agile Design More Effective</strong> - The key shift
-            with Agile Design is to deliver quickly while handling changes smoothly. Instead of doing long
-            requirements phases, and heavy
-        </div>
-        <div class="feed-entry">
-            <strong>INotifyPropertyChanged Interface and PropertyChangedEventHandler in
-                WPF</strong> - The INotifyPropertyChanged interface is used to notify clients, typically
-            binding
-            clients, which a property
-        </div>
-        <div class="feed-entry">
-            <strong>What I Was Thinking... During Our Last Outage (by the CIO of the US
-                Tennis Association)</strong> - Major outages are to CIO tenure what kryptonite is to
-            Superman. This
-            was especially true during
-        </div>
-        <div class="feed-entry">
-            <strong>StackExchange REST Client with Spring and RestTemplate</strong> -
-            StackExchange REST Client with with Spring and RestTemplate
-        </div>
-        <div class="feed-entry">
-            <strong>Writing a Windows 8 Game Loop</strong> - When developing games for
-            Windows 8 with C# it is not immediately clear how to construct a basic game loop. For other
-            Microsoft platforms XNA is the
-        </div>
-        <div class="feed-entry">
-            <strong>10 Ways to Make Agile Design More Effective</strong> - The key shift
-            with Agile Design is to deliver quickly while handling changes smoothly. Instead of doing long
-            requirements phases, and heavy
-        </div>
-        <div class="feed-entry">
-            <strong>INotifyPropertyChanged Interface and PropertyChangedEventHandler in
-                WPF</strong> - The INotifyPropertyChanged interface is used to notify clients, typically
-            binding
-            clients, which a property
-        </div>
-        <div class="feed-entry">
-            <strong>What I Was Thinking... During Our Last Outage (by the CIO of the US
-                Tennis Association)</strong> - Major outages are to CIO tenure what kryptonite is to
-            Superman. This
-            was especially true during
-        </div>
-        <div class="feed-entry">
-            <strong>StackExchange REST Client with Spring and RestTemplate</strong> -
-            StackExchange REST Client with with Spring and RestTemplate
-        </div>
-        <div class="feed-entry">
-            <strong>Writing a Windows 8 Game Loop</strong> - When developing games for
-            Windows 8 with C# it is not immediately clear how to construct a basic game loop. For other
-            Microsoft platforms XNA is the
-        </div>
-        <div class="feed-entry">
-            <strong>10 Ways to Make Agile Design More Effective</strong> - The key shift
-            with Agile Design is to deliver quickly while handling changes smoothly. Instead of doing long
-            requirements phases, and heavy
-        </div>
-        <div class="feed-entry">
-            <strong>INotifyPropertyChanged Interface and PropertyChangedEventHandler in
-                WPF</strong> - The INotifyPropertyChanged interface is used to notify clients, typically
-            binding
-            clients, which a property
-        </div>
-        <div class="feed-entry">
-            <strong>What I Was Thinking... During Our Last Outage (by the CIO of the US
-                Tennis Association)</strong> - Major outages are to CIO tenure what kryptonite is to
-            Superman. This
-            was especially true during
-        </div>
-        <div class="feed-entry">
-            <strong>StackExchange REST Client with Spring and RestTemplate</strong> -
-            StackExchange REST Client with with Spring and RestTemplate
-        </div>
-        <div class="feed-entry">
-            <strong>Writing a Windows 8 Game Loop</strong> - When developing games for
-            Windows 8 with C# it is not immediately clear how to construct a basic game loop. For other
-            Microsoft platforms XNA is the
-        </div>
-        <div class="feed-entry">
-            <strong>10 Ways to Make Agile Design More Effective</strong> - The key shift
-            with Agile Design is to deliver quickly while handling changes smoothly. Instead of doing long
-            requirements phases, and heavy
-        </div>
-        <div class="feed-entry">
-            <strong>INotifyPropertyChanged Interface and PropertyChangedEventHandler in
-                WPF</strong> - The INotifyPropertyChanged interface is used to notify clients, typically
-            binding
-            clients, which a property
-        </div>
-        <div class="feed-entry">
-            <strong>What I Was Thinking... During Our Last Outage (by the CIO of the US
-                Tennis Association)</strong> - Major outages are to CIO tenure what kryptonite is to
-            Superman. This
-            was especially true during
-        </div>
-        <div class="feed-entry">
-            <strong>StackExchange REST Client with Spring and RestTemplate</strong> -
-            StackExchange REST Client with with Spring and RestTemplate
-        </div>
-        <div class="feed-entry">
-            <strong>Writing a Windows 8 Game Loop</strong> - When developing games for
-            Windows 8 with C# it is not immediately clear how to construct a basic game loop. For other
-            Microsoft platforms XNA is the
-        </div>
-        <div class="feed-entry">
-            <strong>10 Ways to Make Agile Design More Effective</strong> - The key shift
-            with Agile Design is to deliver quickly while handling changes smoothly. Instead of doing long
-            requirements phases, and heavy
-        </div>
-        <div class="feed-entry">
-            <strong>INotifyPropertyChanged Interface and PropertyChangedEventHandler in
-                WPF</strong> - The INotifyPropertyChanged interface is used to notify clients, typically
-            binding
-            clients, which a property
-        </div>
-        <div class="feed-entry">
-            <strong>What I Was Thinking... During Our Last Outage (by the CIO of the US
-                Tennis Association)</strong> - Major outages are to CIO tenure what kryptonite is to
-            Superman. This
-            was especially true during
-        </div>
-        <div class="feed-entry">
-            <strong>StackExchange REST Client with Spring and RestTemplate</strong> -
-            StackExchange REST Client with with Spring and RestTemplate
-        </div>
-    </div>
-</div>
-</div>
 </div>
 </div>
 

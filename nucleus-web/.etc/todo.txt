@@ -1,18 +1,14 @@
-UI
-==
+* [UI] Feeds tree.
+* [UI] Custom scroller for feeds tree.
+* [UI] Delayed images loading
+* [UI] Configure feeds and scroller widths
 
-Mockups
--------
-
-* Feeds tree.
-* Custom scroller for feeds tree.
-
-DONE - Tools bar for feed settings and feed info.
-DONE - Add styles to the scroller.
-DONE -  Custom scroller for feed entries.
-
-Backend
-=======
-
-1. ???
-
+* [Config] Maven dependencies for NotNull
+* [Config] Complete JPA configuration for Spring
+* [Backend] Finalize mapping for feeds and folders
+* [Backend] Finalize initial import from OMPL
+* [Backend] Google authentication
+* [Backend] Custom authentication
+* [Backend] Spring security (if needed)
+* [Backend] Caching
+* [Backend] Review HTML sanitizer configuration

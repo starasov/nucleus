@@ -7,6 +7,7 @@ body {
 /* JScrollPane customizations */
 .jspVerticalBar {
     width: 12px;
+    margin-left: -10px;
 }
 
 .jspTrack {
@@ -18,12 +19,12 @@ body {
 }
 
 /* Feed entries page */
-.feed-entry {
+.feed-entry-short {
     min-height: 20px;
     max-height: 20px;
     padding: 9px;
     margin-bottom: -1px;
-    margin-right: -10px;
+    margin-right: 0px;
     margin-top: 0;
     background-color: #fafafa;
     border: 1px solid #e3e3e3;

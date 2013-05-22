@@ -17,7 +17,7 @@ Project Naming Conventions
 --------------------------
 
 * Please follow ex-Sun Java naming conventions.
-* Consistency is important, so please write documentation for non-obvious parts.
+* JavaDocs for tricky parts.
 
 Libraries, Frameworks And Tools
 -------------------------------
@@ -30,6 +30,12 @@ Libraries, Frameworks And Tools
     * AngularJS?;
 * RSS ops:
     * ROME;
+
+HTML Sanitizer
+--------------
+
+https://code.google.com/p/owasp-java-html-sanitizer/source/browse/trunk/src/tests/org/owasp/html/HtmlPolicyBuilderTest.java
+http://owasp-java-html-sanitizer.googlecode.com/svn/trunk/distrib/javadoc/org/owasp/html/Sanitizers.html
 
 Milestones
 ----------
