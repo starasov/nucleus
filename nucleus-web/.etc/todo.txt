@@ -12,3 +12,8 @@
 * [Backend] Spring security (if needed)
 * [Backend] Caching
 * [Backend] Review HTML sanitizer configuration
+
+* JSON mapping
+* Ajax feeds loading
+* Determine how to handle scroll-to-the-bottom event
+* In-memory feed implementation

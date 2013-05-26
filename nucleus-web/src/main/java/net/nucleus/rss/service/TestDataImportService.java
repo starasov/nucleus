@@ -1,6 +1,7 @@
 package net.nucleus.rss.service;
 
 import net.nucleus.rss.model.Outline;
+import net.nucleus.rss.model.User;
 import net.nucleus.rss.opml.OpmlImporter;
 import net.nucleus.rss.opml.OpmlImporterException;
 import org.slf4j.Logger;
@@ -33,13 +34,18 @@ public class TestDataImportService implements ApplicationListener<ContextRefresh
     public void importTestData() throws OpmlImporterException, IOException {
         logger.debug("[importTestData] - begin");
 
+        User user = new User();
+        user.setUsername("test");
+        entityManager.persist(user);
+
         long count = (Long) entityManager.createQuery("select count(o) from Outline o").getSingleResult();
         logger.debug("[importTestData] - imported count: {}", count);
 
         if (count == 0) {
             ResourceLoader resourceLoader = new DefaultResourceLoader();
             Resource resource = resourceLoader.getResource("classpath:/subscriptions.xml");
-            Outline outline = OpmlImporter.fromStream(resource.getInputStream());
+
+            Outline outline = OpmlImporter.fromStream(resource.getInputStream(), user);
             entityManager.persist(outline);
         }
 

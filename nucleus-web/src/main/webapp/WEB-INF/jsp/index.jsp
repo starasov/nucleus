@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 
+<spring:url value="/feed" var="basePath" htmlEscape="true"/>
 <spring:url value="/static" var="resources" htmlEscape="true"/>
 
 <!DOCTYPE html>
@@ -21,7 +22,6 @@
     <!-- Le styles -->
     <link href="${resources}/css/bootstrap.css" rel="stylesheet">
     <link href="${resources}/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="${resources}/css/jquery.jscrollpane.css" rel="stylesheet">
     <link href="${resources}/css/nucleus.css" rel="stylesheet">
 
     <!-- Fav and touch icons -->
@@ -139,14 +139,21 @@
 
             <div class="span10 affix shadow-top" style="margin-left: -20px;"></div>
 
-            <div id="content" class="row-fluid scroll-pane">
+            <div id="content" class="row-fluid scrollable">
                 <c:forEach var="e" items="${entries}">
-                    <div class="feed-entry" style="cursor: pointer;">
-                        <div class="feed-entry-short">
-                            <strong>${e.title}</strong> - ${e.shortDescription}
+                    <div class="feed-entry">
+                        <div id="${e.id}" class="feed-entry-short" style="cursor: pointer;">
+                            <c:choose>
+                                <c:when test="${e.read}">
+                                    <span class="feed-entry-read">${e.title}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="feed-entry-unread">${e.title}</span>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                         <div class="feed-entry-long"
-                             style="border-left: 1px solid #e3e3e3; margin-left: 20px; padding: 20px; display: none;">${e.fullDescription}</div>
+                             style="border: 1px solid #e3e3e3; padding: 20px; display: none;">${e.fullDescription}</div>
                     </div>
                 </c:forEach>
             </div>
@@ -158,9 +165,13 @@
 <!-- JavaScript Placed at the end of the document so the pages load faster -->
 <script src="${resources}/js/jquery.js"></script>
 <script src="${resources}/js/bootstrap.js"></script>
-<script src="${resources}/js/jquery.mousewheel.js"></script>
-<script src="${resources}/js/jquery.jscrollpane.js"></script>
 <script src="${resources}/js/nucleus.js"></script>
+
+<script>
+    Nucleus.init({
+        'basePath': "${basePath}"
+    });
+</script>
 
 </body>
 </html>

@@ -21,6 +21,9 @@ public class Outline {
     @ManyToOne
     private Outline parent;
 
+    @ManyToOne(optional = false)
+    private User user;
+
     @OneToMany(mappedBy = "parent", cascade = CascadeType.PERSIST)
     private List<Outline> children = new ArrayList<Outline>();
 
@@ -47,6 +50,14 @@ public class Outline {
 
     public void setParent(Outline parent) {
         this.parent = parent;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<Outline> getChildren() {
@@ -99,5 +110,22 @@ public class Outline {
 
     public void setHtmlUrl(String htmlUrl) {
         this.htmlUrl = htmlUrl;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Outline outline = (Outline) o;
+
+        if (id != outline.id) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }

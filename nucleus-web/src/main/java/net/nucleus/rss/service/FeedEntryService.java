@@ -4,13 +4,20 @@ import net.nucleus.rss.fetch.FeedFetcher;
 import net.nucleus.rss.fetch.FeedFetcherException;
 import net.nucleus.rss.model.FeedEntry;
 import net.nucleus.rss.model.Outline;
+import net.nucleus.rss.model.User;
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Set;
 
 /**
  * User: starasov
@@ -19,11 +26,12 @@ import java.util.List;
  */
 @Service
 public class FeedEntryService {
+    private static final Logger logger = LoggerFactory.getLogger(FeedEntryService.class);
 
     private EntityManager entityManager;
     private FeedFetcher feedFetcher;
 
-    public Outline findFeed(int feedId) {
+    public Outline findFeed(User user, int feedId) {
         return entityManager.find(Outline.class, feedId);
     }
 
@@ -36,9 +44,23 @@ public class FeedEntryService {
     }
 
     @Transactional
+    public void markEntryAsRead(User loggedInUser, int entryId) {
+        entityManager.createQuery("update FeedEntry e set e.readFlag = true where e.id = :id")
+                .setParameter("id", entryId)
+                .executeUpdate();
+    }
+
+    /**
+     * TODO: split fetching and persistence into separate steps to not consume a transaction.
+     *
+     * @param outline
+     * @throws FeedEntryServiceException
+     */
+    @Transactional
+    @Cacheable("feed")
     public void updateFeed(Outline outline) throws FeedEntryServiceException {
         try {
-            List<FeedEntry> feedEntries = feedFetcher.fetch(outline);
+            Set<FeedEntry> feedEntries = feedFetcher.fetch(outline);
 
             List<FeedEntry> latestFeedEntry =
                     (List<FeedEntry>) entityManager.createQuery("select e from FeedEntry e where e.feed = :outline order by e.entryTimestamp")
@@ -47,11 +69,7 @@ public class FeedEntryService {
                             .getResultList();
 
 
-            if (latestFeedEntry.isEmpty()) {
-                importAllFeedEntries(feedEntries);
-            } else {
-                importFeedEntriesAfterLastStored(feedEntries, latestFeedEntry.get(0));
-            }
+            persistNewFeedEntries(feedEntries, latestFeedEntry);
         } catch (FeedFetcherException e) {
             throw new FeedEntryServiceException("Failed to import entries.", e);
         }
@@ -63,23 +81,25 @@ public class FeedEntryService {
     }
 
     @Autowired
+    @Qualifier("local")
     public void setFeedFetcher(FeedFetcher feedFetcher) {
         this.feedFetcher = feedFetcher;
     }
 
-    private void importAllFeedEntries(List<FeedEntry> feedEntries) {
-        for (FeedEntry feedEntry : feedEntries) {
-            entityManager.persist(feedEntry);
-        }
-    }
+    private void persistNewFeedEntries(@NotNull Set<FeedEntry> newFeedEntries,
+                                       @NotNull List<FeedEntry> lastPersistentEntries) {
+        logger.debug("[persistNewFeedEntries] - newFeedEntries: {}, lastPersistentEntries: {}", newFeedEntries.size(), lastPersistentEntries.size());
 
-    private void importFeedEntriesAfterLastStored(List<FeedEntry> feedEntries, FeedEntry feedEntry) {
-        for (FeedEntry entry : feedEntries) {
-            if (entry.getExternalUrl().equals(feedEntry.getExternalUrl())) {
-                return;
-            }
-
-            entityManager.persist(entry);
+        for (FeedEntry lastPersistentEntry : lastPersistentEntries) {
+            newFeedEntries.remove(lastPersistentEntry);
         }
+
+        logger.debug("[persistNewFeedEntries] - filtered - newFeedEntries: {}", newFeedEntries.size());
+
+        for (FeedEntry newFeedEntry : newFeedEntries) {
+            entityManager.persist(newFeedEntry);
+        }
+
+        logger.debug("[persistNewFeedEntries] - end");
     }
 }

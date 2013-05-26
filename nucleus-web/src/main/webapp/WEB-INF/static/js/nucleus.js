@@ -1,4 +1,8 @@
 var Nucleus = {
+    init: function (settings) {
+        this.settings = settings;
+    },
+
     ready: function () {
         this.fitScreen();
         this.initializeScroller();
@@ -16,30 +20,37 @@ var Nucleus = {
     },
 
     initializeScroller: function () {
-        var scrollPane = $('.scroll-pane');
-
-//        TODO: probably useless
-//        var width = scrollPane.width();
-//        scrollPane.css({'width': (width + 18) + 'px'});
-
-        scrollPane.jScrollPane({
-            contentWidth: '0px', // hides horizontal scroll
-            hideFocus: true, // hides yellow border when focused
-            mouseWheelSpeed: 50 // speeds up scrolling speed, so it's not so annoooooying
+        var contentDiv = $('#content');
+        $(contentDiv).scroll(function () {
+            if (Nucleus.isScrollBottom(contentDiv)) {
+//                alert("Bottom!");
+            }
         });
+    },
+
+    isScrollBottom: function (element) {
+        var maxScrollPosition = element[0].scrollHeight - element.height();
+        var scrollPosition = element.scrollTop();
+        return (maxScrollPosition == scrollPosition);
     },
 
     listenWindowResize: function () {
         $(window).resize(function () {
             Nucleus.fitScreen();
-            Nucleus.initializeScroller();
         })
     },
 
     registerEntriesListener: function () {
-        $('.feed-entry').click(function () {
-            $(this).find('.feed-entry-long').toggle();
-            Nucleus.initializeScroller();
+        $('.feed-entry-short').click(function () {
+            $(this).parent().find('.feed-entry-long').toggle();
+
+            var unreadCount = $(this).find('.feed-entry-unread').length;
+            if (unreadCount > 0) { // to avoid unnecessary server hits if we already read the article
+                var that = this;
+                $.get(Nucleus.settings.basePath + "/mark-as-read/" + this.id, function () {
+                    $(that).find('.feed-entry-unread').removeClass().addClass('feed-entry-read');
+                });
+            }
         });
     }
 };

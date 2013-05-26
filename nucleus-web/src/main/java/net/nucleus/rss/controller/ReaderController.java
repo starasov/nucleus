@@ -2,6 +2,7 @@ package net.nucleus.rss.controller;
 
 import net.nucleus.rss.model.FeedEntry;
 import net.nucleus.rss.model.Outline;
+import net.nucleus.rss.model.User;
 import net.nucleus.rss.service.FeedEntryService;
 import net.nucleus.rss.service.FeedEntryServiceException;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -27,12 +29,12 @@ public class ReaderController {
     private FeedEntryService feedEntryService;
 
     @RequestMapping("/{feedId}")
-    public ModelAndView combined(@PathVariable("feedId") int feedId) throws FeedEntryServiceException {
-        logger.debug("[{}][index] - begin - feedId: {}", this.getClass().getSimpleName(), feedId);
+    public ModelAndView feedEntries(@PathVariable("feedId") int feedId) throws FeedEntryServiceException {
+        logger.debug("[index] - begin - feedId: {}", feedId);
 
         ModelAndView modelAndView = new ModelAndView("index");
 
-        Outline feed = feedEntryService.findFeed(feedId);
+        Outline feed = feedEntryService.findFeed(getLoggedInUser(), feedId);
         modelAndView.addObject("feed", feed);
 
         feedEntryService.updateFeed(feed);
@@ -40,12 +42,25 @@ public class ReaderController {
 
         modelAndView.addObject("entries", list);
 
-        logger.debug("[{}][index] - end", this.getClass().getSimpleName());
+        logger.debug("[index] - end");
         return modelAndView;
+    }
+
+    @RequestMapping("/mark-as-read/{entryId}")
+    public
+    @ResponseBody
+    void markEntryAsRead(@PathVariable("entryId") int entryId) {
+        logger.debug("[markEntryAsRead] - begin - entryId: {}", entryId);
+        feedEntryService.markEntryAsRead(getLoggedInUser(), entryId);
+        logger.debug("[markEntryAsRead] - end");
     }
 
     @Autowired
     public void setFeedEntryService(FeedEntryService feedEntryService) {
         this.feedEntryService = feedEntryService;
+    }
+
+    private User getLoggedInUser() {
+        return null;
     }
 }

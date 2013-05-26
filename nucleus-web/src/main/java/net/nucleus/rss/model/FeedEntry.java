@@ -24,9 +24,6 @@ public class FeedEntry {
     @Column(length = 8192)
     private String fullDescription;
 
-    @Column(length = 8192)
-    private String shortDescription;
-
     @Column(length = 1024)
     private String externalUrl;
 
@@ -35,6 +32,10 @@ public class FeedEntry {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date entryTimestamp;
+
+    private boolean readFlag;
+    private boolean starredFlag;
+    private boolean openedFlag;
 
     public int getId() {
         return id;
@@ -68,14 +69,6 @@ public class FeedEntry {
         this.fullDescription = fullDescription;
     }
 
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
-
     public String getExternalUrl() {
         return externalUrl;
     }
@@ -96,8 +89,69 @@ public class FeedEntry {
         return entryTimestamp;
     }
 
+    public boolean isRead() {
+        return readFlag;
+    }
+
+    public void setReadFlag(boolean readFlag) {
+        this.readFlag = readFlag;
+    }
+
+    public boolean isStarred() {
+        return starredFlag;
+    }
+
+    public void setStarredFlag(boolean starredFlag) {
+        this.starredFlag = starredFlag;
+    }
+
+    public boolean isOpenedFlag() {
+        return openedFlag;
+    }
+
+    public void setOpenedFlag(boolean openedFlag) {
+        this.openedFlag = openedFlag;
+    }
+
     @PrePersist
-    public void updateTimeStamps() {
+    public void updateTimeStamp() {
         entryTimestamp = new Date();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        FeedEntry feedEntry = (FeedEntry) o;
+
+        if (externalUrl != null ? !externalUrl.equals(feedEntry.externalUrl) : feedEntry.externalUrl != null)
+            return false;
+        if (title != null ? !title.equals(feedEntry.title) : feedEntry.title != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = title != null ? title.hashCode() : 0;
+        result = 31 * result + (externalUrl != null ? externalUrl.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("FeedEntry");
+        sb.append("{title='").append(title).append('\'');
+        sb.append(", externalUrl='").append(externalUrl).append('\'');
+        sb.append(", readFlag=").append(readFlag);
+        sb.append(", starredFlag=").append(starredFlag);
+        sb.append(", openedFlag=").append(openedFlag);
+        sb.append(", entryTimestamp=").append(entryTimestamp);
+        sb.append(", id=").append(id);
+        sb.append(", feed=").append(feed.getId());
+        sb.append('}');
+        return sb.toString();
     }
 }

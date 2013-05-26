@@ -87,6 +87,12 @@
 
         <dependency>
             <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
         </dependency>
@@ -111,6 +117,14 @@
             <version>${rome.version}</version>
         </dependency>
 
+        <!-- Caching -->
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>2.6.0</version>
+            <type>pom</type>
+        </dependency>
+
         <!-- Unit testing and friends -->
         <dependency>
             <groupId>junit</groupId>
@@ -130,6 +144,17 @@
             <id>springsource-repo</id>
             <name>SpringSource Repository</name>
             <url>http://repo.springsource.org/release</url>
+        </repository>
+
+        <repository>
+            <id>sourceforge</id>
+            <url>http://oss.sonatype.org/content/groups/sourceforge/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>
 

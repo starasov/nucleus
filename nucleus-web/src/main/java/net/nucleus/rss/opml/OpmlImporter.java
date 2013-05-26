@@ -5,6 +5,7 @@ import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.impl.OPML10Parser;
 import net.nucleus.rss.model.Outline;
 import net.nucleus.rss.model.OutlineType;
+import net.nucleus.rss.model.User;
 import org.jdom.Document;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
@@ -24,14 +25,14 @@ public class OpmlImporter {
     private static final String RSS = "rss";
 
     @NotNull
-    public static Outline fromStream(@NotNull InputStream inputStream) throws OpmlImporterException {
+    public static Outline fromStream(@NotNull InputStream inputStream, User user) throws OpmlImporterException {
         try {
             OpmlImporter opmlImporter = new OpmlImporter();
 
             SAXBuilder builder = new SAXBuilder();
             Document document = builder.build(inputStream);
 
-            return opmlImporter.importOpml(document);
+            return opmlImporter.importOpml(document, user);
         } catch (JDOMException e) {
             throw new OpmlImporterException("OPML import from file failed.", e);
         } catch (IOException e) {
@@ -40,12 +41,13 @@ public class OpmlImporter {
     }
 
     @SuppressWarnings("unchecked")
-    public Outline importOpml(Document document) throws OpmlImporterException {
+    public Outline importOpml(Document document, User user) throws OpmlImporterException {
         try {
             OPML10Parser parser = new OPML10Parser();
             Opml opml = (Opml) parser.parse(document, false);
 
             Outline root = new Outline();
+            root.setUser(user);
             root.setType(OutlineType.FOLDER);
 
             transform(root, (List<com.sun.syndication.feed.opml.Outline>) opml.getOutlines());
@@ -66,6 +68,7 @@ public class OpmlImporter {
             Outline child = new Outline();
 
             child.setParent(parent);
+            child.setUser(parent.getUser());
             child.setHtmlUrl(outline.getHtmlUrl());
             child.setXmlUrl(outline.getXmlUrl());
             child.setTitle(outline.getTitle());
