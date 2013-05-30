@@ -7,7 +7,7 @@
 <spring:url value="/static" var="resources" htmlEscape="true"/>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -22,7 +22,12 @@
     <!-- Le styles -->
     <link href="${resources}/css/bootstrap.css" rel="stylesheet">
     <link href="${resources}/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="${resources}/css/font-awesome.css" rel="stylesheet">
     <link href="${resources}/css/nucleus.css" rel="stylesheet">
+
+    <!-- AngularJS components should be placed under head element, otherwise the framework won't initialize correctly. -->
+    <script src="${resources}/js/angular.js"></script>
+    <script src="${resources}/js/feedscontroller.js"></script>
 
     <!-- Fav and touch icons -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144"
@@ -40,8 +45,9 @@
     <link rel="shortcut icon" href="http://twitter.github.io/bootstrap/assets/ico/favicon.png">
 </head>
 
-<body>
+<body ng-init="feedId='${feed.id}'; basePath='${basePath}'; totalEntryPages=${totalEntryPages}">
 
+<!-- Top navigation bar -->
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container-fluid">
@@ -64,14 +70,15 @@
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </div>
-            <!--/.nav-collapse -->
         </div>
     </div>
 </div>
 
+<!-- Feeds container -->
 <div class="container-fluid">
     <div class="row-fluid">
 
+        <!-- Sidebar with feeds tree -->
         <div class="span2">
             <div class="well sidebar-nav">
                 <ul class="nav nav-list">
@@ -95,15 +102,21 @@
             </div>
         </div>
 
-        <div class="span10">
+        <div class="span10" ng-controller="FeedsController">
+            <!-- Feed details and control bar -->
             <div class="row-fluid navbar-entries-row">
                 <div class="navbar">
                     <div class="navbar-inner navbar-entries">
                         <div class="container-fluid">
-                            <a class="brand" href="${feed.htmlUrl}">${feed.title}</a>
+                            <ul class="nav pull-left">
+                                <li><a class="brand" target="_blank" href="${feed.htmlUrl}">${feed.title}</a></li>
+                                <!-- Loading spinner for entries loading operation -->
+                                <li><i class="brand icon-spinner icon-spin icon-large" ng-show="loadingEntries"></i>
+                                </li>
+                            </ul>
 
                             <ul class="nav pull-right">
-                                <li><a href="#"><i class="icon-repeat"></i> Refresh</a></li>
+                                <li><a href="#" ng-click="refreshFeed()"><i class="icon-repeat"></i> Refresh</a></li>
 
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -137,25 +150,32 @@
                 </div>
             </div>
 
+            <!-- Our pretty shadow goes here -->
             <div class="span10 affix shadow-top" style="margin-left: -20px;"></div>
 
+            <!-- Empty list message -->
+            <div class="span6 offset2 hero-unit" ng-hide="entries.length">
+                <h4 class="brand empty-feed-message">
+                    Ooops... We could not find anything interesting for you here.
+                </h4>
+            </div>
+
+            <!-- Feed entries list -->
             <div id="content" class="row-fluid scrollable">
-                <c:forEach var="e" items="${entries}">
-                    <div class="feed-entry">
-                        <div id="${e.id}" class="feed-entry-short" style="cursor: pointer;">
-                            <c:choose>
-                                <c:when test="${e.read}">
-                                    <span class="feed-entry-read">${e.title}</span>
-                                </c:when>
-                                <c:otherwise>
-                                    <span class="feed-entry-unread">${e.title}</span>
-                                </c:otherwise>
-                            </c:choose>
+                <div ng-repeat="entry in entries">
+                    <div id="{{entry.id}}" class="feed-entry" ng-click="processEntryClick(entry)">
+                        <div class="feed-entry-short" style="">
+                            <!-- For unread entries 'feed-entry-unread' class is applied -->
+                            <span ng-class="{'feed-entry-unread': !entry.read}">{{entry.title}}</span>
                         </div>
-                        <div class="feed-entry-long"
-                             style="border: 1px solid #e3e3e3; padding: 20px; display: none;">${e.fullDescription}</div>
+
+                        <!--
+                            Feed entry description contains 'unsafe' contents, but they are sanitized on server-side,
+                            so we can assume that it's safe to show the contents as is.
+                        -->
+                        <div class="feed-entry-long" ng-bind-html-unsafe="entry.fullDescription"></div>
                     </div>
-                </c:forEach>
+                </div>
             </div>
         </div>
     </div>
@@ -166,12 +186,6 @@
 <script src="${resources}/js/jquery.js"></script>
 <script src="${resources}/js/bootstrap.js"></script>
 <script src="${resources}/js/nucleus.js"></script>
-
-<script>
-    Nucleus.init({
-        'basePath': "${basePath}"
-    });
-</script>
 
 </body>
 </html>

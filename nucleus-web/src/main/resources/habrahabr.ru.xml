@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Хабрахабр / Захабренные / Тематические / Посты</title>
+        <link>http://habrahabr.ru/rss/hubs/</link>
+        <description><![CDATA[Захабренные посты из тематических хабов на Хабрахабре]]></description>
+        <language>ru</language>
+        <managingEditor>editor@habrahabr.ru</managingEditor>
+        <generator>habrahabr.ru</generator>
+        <pubDate>Mon, 27 May 2013 01:45:19 GMT</pubDate>
+        <lastBuildDate></lastBuildDate>
+        <image>
+            <link>http://habrahabr.ru/</link>
+            <url>http://habrahabr.ru/i/logo.gif</url>
+            <title>Хабрахабр</title>
+        </image>
+
+
+        <item>
+            <title><![CDATA[Galaxy S3: радикальное снижения энерго-потребления mediaserver-ом]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/180985/</guid>
+            <link>http://habrahabr.ru/post/180985/</link>
+            <description><![CDATA[Многие владельцы Android устройств эпизодически сталкиваются с проблемой повышенного потребления энергии службой «Media Storage» (он-же mediaserver). Данный пост о том, как данная проблема может быть решена радикальным способом для устройств с разделяемой внутренней картой памятью и разделом /data, (Galaxy S3, Nexus 4, и многие другие), а также собственно немного об устройстве и организации внутренней памяти подобных устройств, и о том, как внутренняя карта памяти может быть ускорена и оптимизирована на Android 4.1. <br/>
+К сожалению все описанное применимо только ко внутренней карте памяти.<br/>
+<br/>
+Служба Media Storage в OS Android отвечает за индексацию всех медиа-файлов на внутренней / внешней карте. Когда mediaserver натыкается на большое скопление файлов, он глубоко и надолго уходит в индексацию найденного добра, пытаясь найти среди этих файлов что-то похожее на медиа-контент, потребляя при этом немалый процент энергии и процессорного времени, что может продолжатся по нескольку часов. Для того, чтобы это не происходило, в Android-е предусмотрен механизм .nomedia файлов, — каталоги содержащие такой файл, должны быть пропущены mediaserver-ом. По непонятным причинам, на многих современных прошивках, начиная с Jelly Bean, mediaserver просто игнорирует данные файлы, продолжая свою нелегкую и бесполезную работу по индексации внутренних ресурсов приложений. Также бывает случается, что перезагрузка устройства приводит к тому, что mediaserver начинает индексацию с нуля, что еще сильнее усугубляет ситуацию. <br/>
+<br/>
+<b>Небольшой дискламер:</b> повторяя действия описанные в данном посте, вы делаете все на свой страх и риск, автор не несет ответственности за испорченные устройства, потерянные данные, потраченное время. Вы также можете лишится гарантии, т.к. потребуется модификация прошивки системы. <br/>
+ <a href="http://habrahabr.ru/post/180985/#habracut">Читать дальше &rarr;</a>]]></description>
+
+            <pubDate>Mon, 27 May 2013 00:51:24 GMT</pubDate>
+            <author>quarck</author>
+            <category><![CDATA[Разработка под Android]]></category>
+            <category><![CDATA[Android]]></category>
+            <category><![CDATA[android]]></category>
+            <category><![CDATA[энергопотребление]]></category>
+            <category><![CDATA[прошивка]]></category>
+        </item>
+
+
+        <item>
+            <title><![CDATA[Самая маленькая сбойная программа на C]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/181021/</guid>
+            <link>http://habrahabr.ru/post/181021/</link>
+            <description><![CDATA[Шведский студент Джестер Огвист (Jesper Öqvist) получил в универе домашнее задание: написать <a href="http://llbit.se/?p=1744">самую маленькую программу C</a>, которая вылетает с ошибкой (segfault). Обычно студенты в таких ситуациях используют деление на ноль.<br/>
+<br/>
+<pre><code>int main()
+{
+    return 1/0;
+}</code></pre><br/>
+Из этого кода ещё можно удалить пару байтов, если вместо инструкции использовать присвоение значения переменной. <br/>
+<br/>
+<pre><code>int main()
+{
+    i=1/0;
+}</code></pre> <a href="http://habrahabr.ru/post/181021/#habracut">Читать дальше &rarr;</a>]]></description>
+
+            <pubDate>Sun, 26 May 2013 22:09:31 GMT</pubDate>
+            <author>alizar</author>
+            <category><![CDATA[Ненормальное программирование]]></category>
+            <category><![CDATA[C]]></category>
+            <category><![CDATA[segmentation fault]]></category>
+            <category><![CDATA[segfault]]></category>
+            <category><![CDATA[ошибка сегментации]]></category>
+            <category><![CDATA[объектный модуль]]></category>
+            <category><![CDATA[исполнимый модуль]]></category>
+            <category><![CDATA[компиляция]]></category>
+            <category><![CDATA[компоновщик]]></category>
+            <category><![CDATA[точка входа]]></category>
+            <category><![CDATA[C89]]></category>
+            <category><![CDATA[main()]]></category>
+        </item>
+
+
+        <item>
+            <title><![CDATA[Корпус с масляным охлаждением компонентов]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/181003/</guid>
+            <link>http://habrahabr.ru/post/181003/</link>
+            <description><![CDATA[<img src="http://bit.ly/13WKML1" align="left"/><br/>
+Давно мечтал собрать нечто подобное, но не было повода.<br/>
+Недавно начал экспериментировать с майнингом на разных видеокартах в разных корпусах. Пришел к выводу, что меньше всего карты высокого уровня греются без корпуса. Но при установке нескольких карт уровня 7950/7970 приходится городить сверху вентиляторы — конструкция хлипкая, шумная и занимает много места.<br/>
+Пробовал серверные корпуса — 1U и 4U. Шумят так, что глохнешь, а охлаждают не очень эффективно — пара карт уровня FirePro V9800 и S10000 перегревались на штатных частотах уже через 10 минут. При достижении 100 градусов станция зависала. Да и работать на таких температурах не безопасно. Для достижения стабильности в таких условиях приходилось снижать нагрузку на четверть, что шума и жара не убавляло, а эффективности — напротив. О шуме я не думал — оборудование стояло в серверной, а вот терморежим проседал, несмотря на работающие кондиционеры и кулера на полную мощность.<br/>
+ <a href="http://habrahabr.ru/post/181003/#habracut">И тут я вспомнил о своей старой задумке с масляным охлаждением и решил воплотить ее в жизнь</a>]]></description>
+
+            <pubDate>Sun, 26 May 2013 20:46:08 GMT</pubDate>
+            <author>Usikoff</author>
+            <category><![CDATA[Системы охлаждения]]></category>
+            <category><![CDATA[Высокая производительность]]></category>
+            <category><![CDATA[DIY или Сделай Сам]]></category>
+            <category><![CDATA[масляное охлаждение]]></category>
+            <category><![CDATA[компьютер в масле]]></category>
+            <category><![CDATA[майнинг]]></category>
+            <category><![CDATA[бесшумный компьютер]]></category>
+            <category><![CDATA[аквариум]]></category>
+        </item>
+
+
+        <item>
+            <title><![CDATA[Tech News — XBOX ✞ ONE, COD:Ghosts, гнутый сенсор]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/180999/</guid>
+            <link>http://habrahabr.ru/post/180999/</link>
+            <description><![CDATA[После года отсутствия вернулись рассказывать новости весело. В пятницу не успели, увы.<br/>
+<iframe width="560" height="349" src="http://www.youtube.com/embed/ohw2r9wyQ1M?wmode=opaque" frameborder="0" allowfullscreen></iframe><br/>
+В этом выпуске:<ul>
+<li>XBOX ONE — всё, что о нём известно на текущий момент</li>
+<li>Call of Duty: Ghosts — ещё одна компьютерная игра</li>
+<li>Сенсорная гнущаяся электронная бумага от Sony</li>
+</ul> <a href="http://habrahabr.ru/post/180999/#habracut"></a>]]></description>
+
+            <pubDate>Sun, 26 May 2013 20:26:56 GMT</pubDate>
+            <author>Zelenov</author>
+            <category><![CDATA[Медиа]]></category>
+            <category><![CDATA[YouTube]]></category>
+            <category><![CDATA[TN]]></category>
+            <category><![CDATA[Call of Duty]]></category>
+            <category><![CDATA[xbox one]]></category>
+            <category><![CDATA[Sony]]></category>
+            <category><![CDATA[E-ink]]></category>
+            <category><![CDATA[Kinect]]></category>
+            <category><![CDATA[VHS]]></category>
+        </item>
+
+
+        <item>
+            <title>
+                <![CDATA[17-летний подросток опубликовал 0day XSS в PayPal после того, как ему отказали в вознаграждении]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/181013/</guid>
+            <link>http://habrahabr.ru/post/181013/</link>
+            <description>
+                <![CDATA[Robert Kugler, 17-летний студент из Германии, который интересуется компьютерной безопасностью, нашел уязвимость на сайте paypal.com, и решил сообщить о ней в рамках <a href="https://www.paypal.com/us/webapps/mpp/security/reporting-security-issues">программы по награждению за найденные баги.</a> Однако, ему было отказано, т.к. он не достиг 18 лет. В ответ на это, он опубликовал уязвимость на <a href="http://seclists.org/fulldisclosure/2013/May/163">seclists.org</a>. <a href="http://habrahabr.ru/post/181013/#habracut">Читать дальше &rarr;</a>]]></description>
+
+            <pubDate>Sun, 26 May 2013 19:25:32 GMT</pubDate>
+            <author>ValdikSS</author>
+            <category><![CDATA[Информационная безопасность]]></category>
+            <category><![CDATA[paypal]]></category>
+            <category><![CDATA[уязвимость]]></category>
+            <category><![CDATA[уязвимость нулевого дня]]></category>
+        </item>
+
+
+        <item>
+            <title><![CDATA[ARM как основа для новых суперкомпьютеров]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/181011/</guid>
+            <link>http://habrahabr.ru/post/181011/</link>
+            <description><![CDATA[<img src="http://img7.imageshack.us/img7/4553/armchip230413.jpg" alt="image" align="right"/><br/>
+Испанский центр BRC (Barcelona Supercomputing Center) провел исследование, согласно которому в будущем ARM-чипы, подобные тем, что используются в современных смартфонах, смогут заменить в суперкомпьютерах и серверах более дорогие и энергоемкие процессоры x86-архитектуры. Результаты исследования были изложены в статье «Are mobile processors ready for HPC?», представленной публике на выставке EDAworkshop13, прошедшей в этом месяце в Дрездене.<br/>
+<br/>
+В своей работе исследователи прогнозируют повторение истории конца 20 века, когда RISC-чипы вытеснили более дорогие векторные процессоры, использовавшиеся в подавляющем количестве суперкомпьютеров. RISC в свою очередь были заменены со временем x86-процессорами типа Intel Xeon или AMD Opteron, которые до сих пор служат основой более 400 из 500 самых мощных суперкомпьютеров мира. Специалисты BRC утверждают, что при прогнозировании развития технологий, применяемых в высокопроизводительных системах, следует уделять внимание не только мощности, но и цене чипа, а также его размерам. «Мобильные процессоры не быстрее… но они значительно дешевле», пишут исследователи.<br/>
+ <a href="http://habrahabr.ru/post/181011/#habracut">Читать дальше &rarr;</a>]]></description>
+
+            <pubDate>Sun, 26 May 2013 19:16:20 GMT</pubDate>
+            <author>volly</author>
+            <category><![CDATA[Смартфоны и коммуникаторы]]></category>
+            <category><![CDATA[Железо]]></category>
+            <category><![CDATA[Высокая производительность]]></category>
+            <category><![CDATA[суперкомпьютеры]]></category>
+            <category><![CDATA[ARM]]></category>
+            <category><![CDATA[чипы]]></category>
+            <category><![CDATA[смартфоны]]></category>
+            <category><![CDATA[вычисления]]></category>
+        </item>
+
+
+        <item>
+            <title><![CDATA[Авторизация в PhoneGap приложении через Facebook, Vkontakte и Habrahabr]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/181007/</guid>
+            <link>http://habrahabr.ru/post/181007/</link>
+            <description><![CDATA[<img src="http://phonegap.com/uploads/artwork/Build-Bot-Preview.png" alt="PhoneGap" align="left"/>Привет, хабраюзер. Недавно я написал статейку о своем видение <a href="http://habrahabr.ru/post/180751/">интерфейса операционной системы мобильного телефона</a>, но она мало кого заинтересовала и я решил попробовать написать приложение, которое бы частично воплотила идею в реальность, а так как кроме веб языков я мало что знаю, то решил писать приложения на html5+js+css с помощью PhoneGap. И начал с авторизации и получения токенов или кук с различных источников. За день неспешного кодинга получилось сделать плагины авторизации для Facebook, Вконтакте и Хабра (большая часть времени ушла на гугление и чтение документации к API).<br/>
+ <a href="http://habrahabr.ru/post/181007/#habracut">Читать дальше &rarr;</a>]]></description>
+
+            <pubDate>Sun, 26 May 2013 18:53:35 GMT</pubDate>
+            <author>SovGVD</author>
+            <category><![CDATA[Смартфоны и коммуникаторы]]></category>
+            <category><![CDATA[JavaScript]]></category>
+            <category><![CDATA[phonegap]]></category>
+            <category><![CDATA[мобильное приложение]]></category>
+            <category><![CDATA[android]]></category>
+            <category><![CDATA[facebook]]></category>
+            <category><![CDATA[вконтакте]]></category>
+            <category><![CDATA[хабрахабр]]></category>
+        </item>
+
+
+        <item>
+            <title><![CDATA[[Перевод] AngularJS + PHP. Заставляем $http-сервис веcти себя как jQuery.ajax()]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/181009/</guid>
+            <link>http://habrahabr.ru/post/181009/</link>
+            <description>
+                <![CDATA[Новички в Ангуляре часто путаются из-за того, что быстрые функции $http-сервиса (напр., <code>$http.post()</code>) не взаимозаменяемы с эквивалентными функциями Джиквери (напр., <code>jQuery.post()</code>), не смотря на то, что соответствующие руководства описывают их использование схожим образом. То есть, если код в Джиквери до этого имел вид: <a href="http://habrahabr.ru/post/181009/#habracut">Читать дальше &rarr;</a>]]></description>
+
+            <pubDate>Sun, 26 May 2013 18:25:43 GMT</pubDate>
+            <author>tamtakoe</author>
+            <category><![CDATA[Веб-разработка]]></category>
+            <category><![CDATA[PHP]]></category>
+            <category><![CDATA[AngularJS]]></category>
+            <category>angularjs</category>
+            <category>php</category>
+            <category>rest</category>
+            <category>request payload</category>
+        </item>
+
+
+        <item>
+            <title><![CDATA[Крах анонимных платежей. На покой уходит LibertyReserve. Или нет]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/180997/</guid>
+            <link>http://habrahabr.ru/post/180997/</link>
+            <description><![CDATA[<img src="http://2.bp.blogspot.com/_DgLdYIi3mfE/SwMVzDkEzeI/AAAAAAAAAFY/0a-6vqN9vhY/s640/budcar.jpg" alt="image"/><br/>
+<br/>
+Вторые сутки не утихают крики на форумах и кулуарные перешептывания — жив ли пациент или скорее мертв. LibertyReserve является крупнейшей анонимной электронной платёжной системой. Основанная выходцем из Украины Артуром Будовским-Беланчуком система за последние пять лет добилась лидирующих позиций на всех серых рынках и начала всерьёз котироваться на западе, сменив почившие e-Gold, eBullion и прочие. Ещё задолго до BitCoin либерти стала бельмом на глазу МинФина США, т.к. служила идеальным средством сокрытия капитала от налогов и способствовала обороту капитала по сделкам, нарушающим законы США.<br/>
+<br/>
+Обороты LR за последние пять лет исчисляются в миллиардах USD, текущий баланс счетов оценивается в 70-150М.<br/>
+ <a href="http://habrahabr.ru/post/180997/#habracut">Читать дальше &rarr;</a>]]></description>
+
+            <pubDate>Sun, 26 May 2013 16:40:38 GMT</pubDate>
+            <author>TDz</author>
+            <category><![CDATA[Электронная коммерция]]></category>
+            <category><![CDATA[Финансы для всех]]></category>
+            <category><![CDATA[Платежные системы]]></category>
+            <category><![CDATA[libertyreserve]]></category>
+            <category><![CDATA[liberty reserve]]></category>
+            <category><![CDATA[эпс]]></category>
+            <category><![CDATA[платёжные системы]]></category>
+        </item>
+
+
+        <item>
+            <title><![CDATA[Оптимальный алгоритм игры в морской бой]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/180995/</guid>
+            <link>http://habrahabr.ru/post/180995/</link>
+            <description>
+                <![CDATA[Пару дней назад я с удивлением узнал, что некоторые мои знакомые не умеют играть в морской бой. Т.е. правила они, конечно, знают, но вот играют как-то бессистемно и в итоге часто проигрывают. В этой записи я постараюсь изложить основные идеи, которые помогут повысить уровень вашей игры. <a href="http://habrahabr.ru/post/180995/#habracut">Читать дальше &rarr;</a>]]></description>
+
+            <pubDate>Sun, 26 May 2013 16:27:01 GMT</pubDate>
+            <author>GORKOFF</author>
+            <category><![CDATA[Алгоритмы]]></category>
+            <category><![CDATA[Морской бой]]></category>
+            <category><![CDATA[оптимальная игра]]></category>
+            <category><![CDATA[оптимальная расстановка]]></category>
+        </item>
+
+
+        <item>
+            <title>
+                <![CDATA[Дайджест новостей из мира мобильной разработки за последнюю неделю №13 (20 — 26 мая 2013)]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/180977/</guid>
+            <link>http://habrahabr.ru/post/180977/</link>
+            <description><![CDATA[Новостей на этой неделе не очень много, но все же — Unity стал бесплатным для iOS и Android; как добавить Google Apps в эмулятор Android; начался Samsung Smart App Challenge 2013 с призовым фондом $800 000; Jolla анонсировала первый смартфон на Sailfish OS и TestFlight, FlightPath и SkyRocket наконец объединились в одну структуру. <br/>
+<br/>
+<img src="http://habrastorage.org/storage2/9bc/57f/829/9bc57f8299ae7ba39769d430704c9068.png" alt="image"/> <a href="http://habrahabr.ru/post/180977/#habracut">Читать дальше &rarr;</a>]]></description>
+
+            <pubDate>Sun, 26 May 2013 11:55:28 GMT</pubDate>
+            <author>DaryaZ</author>
+            <category><![CDATA[Mobile Development]]></category>
+            <category><![CDATA[Блог компании «Apps4All»]]></category>
+            <category><![CDATA[разработка]]></category>
+            <category><![CDATA[мобильные приложения]]></category>
+            <category><![CDATA[ios]]></category>
+            <category><![CDATA[android]]></category>
+            <category><![CDATA[blackberry]]></category>
+            <category><![CDATA[маркетинг]]></category>
+            <category><![CDATA[aso]]></category>
+        </item>
+
+
+        <item>
+            <title><![CDATA[[Из песочницы] Космическая отрасль — альтернативный взгляд]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/180961/</guid>
+            <link>http://habrahabr.ru/post/180961/</link>
+            <description><![CDATA[Я не люблю холиварные темы: в них мало правды и мало радости. Но <a href="http://habrahabr.ru/post/180697/">последний</a> топик у меня вызвал бурю эмоций. Я сам и много моих знакомых так или иначе связаны с нашей космической промышленностью и могу сказать, что все немного иначе.<br/>
+<br/>
+Если вкратце — у нас положение тяжелое, но у них тоже не лучше, если не хуже. (Это относится к европейским и американским структурам, про остальных не знаю.)<br/>
+ <a href="http://habrahabr.ru/post/180961/#habracut">Читать дальше &rarr;</a>]]></description>
+
+            <pubDate>Sun, 26 May 2013 10:30:29 GMT</pubDate>
+            <author>DancingOnWater</author>
+            <category><![CDATA[Космонавтика]]></category>
+            <category>космонавтика</category>
+        </item>
+
+
+        <item>
+            <title><![CDATA[Поддержка The Neverhood добавлена в ScummVM]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/180183/</guid>
+            <link>http://habrahabr.ru/post/180183/</link>
+            <description><![CDATA[<img src="http://habrastorage.org/storage2/bed/26e/c34/bed26ec34b0388b069acab1c1d04d391.png"/><br/>
+<br/>
+Несколько дней назад, 15 мая, в <a href="http://scummvm.org">ScummVM</a>, известный кроссплатформенный набор игровых движков для point-and-click adventure, была добавлена ветка кода с движком, который поддерживает классику квестового жанра, игру The Neverhood.<br/>
+<br/>
+Это был один из самых захватывающих и длинных проектов в ScummVM. Разговоры об этом шедевре продолжались в течение нескольких лет, и на форумах регулярно просили добавить поддержку этой игры. Два года потребовалось на разработку движка, и я хочу коротко рассказать, как это происходило.<br/>
+<br/>
+ <a href="http://habrahabr.ru/post/180183/#habracut">Продолжим</a>]]></description>
+
+            <pubDate>Sun, 26 May 2013 09:23:13 GMT</pubDate>
+            <author>sev</author>
+            <category><![CDATA[История ИТ]]></category>
+            <category><![CDATA[Game Development]]></category>
+            <category><![CDATA[scummvm]]></category>
+            <category><![CDATA[neverhood]]></category>
+            <category><![CDATA[reverse engineering]]></category>
+            <category><![CDATA[c++]]></category>
+            <category><![CDATA[game development]]></category>
+            <category><![CDATA[game development industry]]></category>
+            <category><![CDATA[old games]]></category>
+            <category><![CDATA[old school]]></category>
+            <category><![CDATA[classic]]></category>
+        </item>
+
+
+        <item>
+            <title><![CDATA[NASA финансирует проект создания «пищевого» 3D принтера]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/180975/</guid>
+            <link>http://habrahabr.ru/post/180975/</link>
+            <description><![CDATA[<img src="http://habrastorage.org/storage2/bb2/ccd/2bc/bb2ccd2bcab521121e7d10336d7e9a4a.jpg"/><br/>
+<br/>
+Фактически, речь идет о том самом синтезаторе пищевых продуктов, который описывался во многих научно-фантастических произведениях. Конечно, до атомного синтезатора продуктов наша наука и технические возможности пока не «доросла», но в качестве замены можно предложить создание 3D принтер, который сможет «печатать» разного рода блюда. NASA решила выделить 125 тысяч долларов на разработку такого принтера. <br/>
+<br/>
+ <a href="http://habrahabr.ru/post/180975/#habracut">Читать дальше &rarr;</a>]]></description>
+
+            <pubDate>Sun, 26 May 2013 09:20:32 GMT</pubDate>
+            <author>marks</author>
+            <category><![CDATA[Медиа]]></category>
+            <category><![CDATA[Будущее здесь]]></category>
+            <category><![CDATA[3d печать]]></category>
+            <category><![CDATA[космос]]></category>
+            <category><![CDATA[nasa]]></category>
+        </item>
+
+
+        <item>
+            <title><![CDATA[[Из песочницы] DOOM 3 BFG — Обзор исходного кода: введение (часть 1 из 4)]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/180973/</guid>
+            <link>http://habrahabr.ru/post/180973/</link>
+            <description><![CDATA[<a href="http://fabiensanglard.net/doom3_bfg/index.php">Doom3 BFG Source Code Review: Introduction (Part 1 of 4)</a> — Fabien Sanglard<br/>
+<br/>
+<img src="http://habrastorage.org/storage2/7c4/017/eb2/7c4017eb2e6a6141dd35a5023edba68e.jpg" align="right"/>26 ноября 2012 ID Software выпустила исходный код <a href="https://github.com/id-Software/DOOM-3-BFG">Doom 3 BFG edition</a> (всего через месяц после появления игры на прилавках магазинов). Движок idTech4, которому уже почти 10 лет, был обновлен решениями, используемыми в idTech 5 (<a href="http://ru.wikipedia.org/wiki/Rage_(%D0%B8%D0%B3%D1%80%D0%B0)">Rage </a> — первая игра на этом движке), и с его исходным кодом ознакомиться было очень интересно. <br/>
+<br/>
+Я бы назвал движок «idTech4 улучшенный», т.к. по сути это idTech4, но с использованием элементов idTech5:<br/>
+<ul>
+<li> Систему управления потоками (Threading system)</li>
+<li> Звуковую систему (Sound system)</li>
+<li> Систему управления ресурсами (Resources system)</li>
+</ul><br/>
+ <a href="http://habrahabr.ru/post/180973/#habracut">Подробности</a>]]></description>
+
+            <pubDate>Sun, 26 May 2013 09:18:34 GMT</pubDate>
+            <author>PopeyetheSailor</author>
+            <category><![CDATA[Game Development]]></category>
+            <category><![CDATA[C++]]></category>
+            <category><![CDATA[C]]></category>
+            <category>doom 3</category>
+            <category>doom iii bfg edition</category>
+            <category>gamedev</category>
+            <category>game development</category>
+        </item>
+
+
+        <item>
+            <title>
+                <![CDATA[[Из песочницы] Безболезненное подключение статических библиотек к проекту средствами qmake]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/180959/</guid>
+            <link>http://habrahabr.ru/post/180959/</link>
+            <description><![CDATA[qbs, несомненно, грядет, но пока мы сидим на qmake (если не сбежали на CMake давным-давно). И, наверное, всякий, кто подключал статические библиотеки к проекту, согласится со мной, что удовольствие это значительно ниже среднего. Лично я слишком ленив для такого безобразия, и решил автоматизировать процесс. Под катом — то, что у меня получилось.<br/>
+ <a href="http://habrahabr.ru/post/180959/#habracut">Читать дальше &rarr;</a>]]></description>
+
+            <pubDate>Sun, 26 May 2013 08:58:14 GMT</pubDate>
+            <author>mgsxx</author>
+            <category><![CDATA[Qt Software]]></category>
+            <category>qt software</category>
+        </item>
+
+
+        <item>
+            <title><![CDATA[nopCommerce 3.00 open source CMS: обзор новых функций, поддержка Windows Azure]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/180957/</guid>
+            <link>http://habrahabr.ru/post/180957/</link>
+            <description><![CDATA[<a href="http://www.nopcommerce.com/"><img title="clip_image001" hspace="12" alt="clip_image001" src="http://i46.fastpic.ru/big/2013/0526/f4/aa8619461e6fe6926c9f847a9d188bf4.png"/></a> <br/>
+<a href="http://www.nopcommerce.com/">nopCommerce</a> – это open source движок для электронной коммерции, написанный на ASP.NET MVC 4. По данным разработчиков, на сегодняшний день система была скачана более одного миллиона раз и продолжает набирать популярность. <br/>
+<br/>
+Четвертого мая этого года вышла новая версия системы – 3.00. Ключевыми нововведениями стали поддержка multi-store и multi-vendor. Примечательно, что nopCommerce стала одной из первых open source CMS в мире, которая поддерживает оба данных функционала. <br/>
+<br/>
+Давайте рассмотрим подробнее каждый из них.<br/>
+<br/>
+<h3>Multi-store</h3><br/>
+Multi-store позволяет иметь два и более онлайн магазина, установив nopCommerce только один раз, и использую только одну общую базу данных. Эти магазины могут быть доступны на разных доменах (URL). Вам не надо дублировать продукты и категории ддя каждого из магазинов, а пользователи могут использовать одну и ту же учетную запись для всех магазинов. Каждый из магазинов может иметь уникальные настройки и графическое оформление. А администратор может обрабатывать заказы и управлять каталогом в одной единой панели администрирования. <br/>
+ <a href="http://habrahabr.ru/post/180957/#habracut">Читать дальше &rarr;</a>]]></description>
+
+            <pubDate>Sun, 26 May 2013 08:47:27 GMT</pubDate>
+            <author>XaocCPS</author>
+            <category><![CDATA[Windows Azure]]></category>
+            <category><![CDATA[CMS]]></category>
+            <category><![CDATA[ASP]]></category>
+            <category><![CDATA[nopcommerce]]></category>
+            <category><![CDATA[cms]]></category>
+            <category><![CDATA[windows azure]]></category>
+            <category><![CDATA[asp.net mvc]]></category>
+            <category><![CDATA[multi-store]]></category>
+            <category><![CDATA[multi-vendor]]></category>
+        </item>
+
+
+        <item>
+            <title><![CDATA[Осталось 27 дней до вывода на орбиту первого спутника O3b]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/180951/</guid>
+            <link>http://habrahabr.ru/post/180951/</link>
+            <description><![CDATA[<img src="http://habrastorage.org/storage2/074/cef/44f/074cef44fb5203dcd3302dfb654c343b.jpg"/><br/>
+<br/>
+Финансируемая гуглом компания <a href="http://www.o3bnetworks.com/homepage.aspx">O3b Networks</a> <a href="http://www.o3bnetworks.com/additional-pages/blog/o3b-satellite-is-mounted-to-launch-dispenser">подготовила</a> первый из 8-ми спутников к запуску. На главной странице их сайта уже можно видеть обратный отсчет времени до запуска.<br/>
+<br/>
+На хабре уже <a href="http://habrahabr.ru/post/109009/">был топик</a> об этом «провайдере будущего», который планирует предоставить быстрый, доступный и качественный доступ в интернет для 70% населения планеты. Данный провайдер является «оптовым» поставщиком канала, то есть он будет предоставлять трафик посредникам (например, сотовым операторам), которые уже смогут распределять его между своими клиентами через имеющиеся сети.<br/>
+<br/>
+ <a href="http://habrahabr.ru/post/180951/#habracut">Читать дальше &rarr;</a>]]></description>
+
+            <pubDate>Sun, 26 May 2013 08:12:03 GMT</pubDate>
+            <author>ajayver</author>
+            <category><![CDATA[Будущее здесь]]></category>
+            <category><![CDATA[Беспроводные технологии]]></category>
+            <category><![CDATA[Google]]></category>
+            <category><![CDATA[провайдеры интернет]]></category>
+            <category><![CDATA[спутниковая связь]]></category>
+            <category><![CDATA[google]]></category>
+        </item>
+
+
+        <item>
+            <title><![CDATA[Будущее анонимности: Какое оно?]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/180949/</guid>
+            <link>http://habrahabr.ru/post/180949/</link>
+            <description><![CDATA[<img src="http://habrastorage.org/storage2/e39/b84/897/e39b84897ad21aa1cd8d3379c1634abd.png"/><br/>
+<br/>
+Мы живем в очень интересное время, совсем недавно интернет был свободен от правообладателей органов регуляции правопорядка.<br/>
+<i>Да и даже на torrents.ru неугодные раздачи не удаляли</i><br/>
+Но теперь все изменилось, Skype <a href="http://habrahabr.ru/post/180163/">теперь</a> <a href="http://habrahabr.ru/post/143436/">прослушивается</a> ФСБ, по первой заявке к любому сервису органы получат всю доступную им информацию. <br/>
+<br/>
+То обладателя форума который стал не угодный <s>чиновнику</s> строительной компании <a href="http://habrahabr.ru/post/180733/">решили засудить</a> на 1.7 миллиона долларов. <br/>
+<br/>
+Недавно была <s>хорошая попытка проверку волнения публики</s> <a href="http://habrahabr.ru/post/180781/">ошибочная блокировка vk.com</a><br/>
+<br/>
+Таких случаев море, как в России так и, например в Латвии, когда был арестован учитель за <a href="http://habrahabr.ru/post/180595/">публикацию в общий доступ</a> книги для своих учеников. <br/>
+<br/>
+Я не буду рассуждать почему это происходит, хорошая ли или плохая власть, это бессмысленно, все уже давно понимают, что сейчас идет <a href="http://otvety.google.ru/otvety/thread?tid=51ebfd922cdcc472&amp;pli=1">эффект вареной лягушки</a>, я лишь попытаюсь рассказать 2 возможных пути развития свободного направления интернета.<br/>
+ <a href="http://habrahabr.ru/post/180949/#habracut">Читать дальше &rarr;</a>]]></description>
+
+            <pubDate>Sun, 26 May 2013 07:41:33 GMT</pubDate>
+            <author>shifttstas</author>
+            <category><![CDATA[Криптография]]></category>
+            <category><![CDATA[Dura Lex]]></category>
+            <category><![CDATA[анонимность]]></category>
+        </item>
+
+
+        <item>
+            <title><![CDATA[Microsoft запатентовала систему достижений за просмотр ТВ]]></title>
+            <guid isPermaLink="true">http://habrahabr.ru/post/180943/</guid>
+            <link>http://habrahabr.ru/post/180943/</link>
+            <description><![CDATA[<img src="http://habrastorage.org/storage2/854/5b1/132/8545b1132b797758cc4f3dc7b60f04dc.jpg" alt="image" align="left"/><br/>
+<a href="http://www.xbox.com/en-US/xboxone/meet-xbox-one">Анонс</a> нового Xbox One продемонстрировал, что с выпуском нового детища Microsoft предложит пользователю не только nextgen-игрушки, но и новые возможности при просмотре ТВ и другого медиа-контента.<br/>
+<br/>
+Недавно MS подтвердила свой интерес к ТВ, <a href="http://amesindustry.biz/articles/2013-05-24-microsoft-applies-for-patent-on-tv-achievements">запатентовав</a> систему «ачивок», которые пользователь сможет получить за просмотр медиа.<br/>
+<br/>
+В прошлом году на хабре уже <a href="http://habrahabr.ru/post/157953/">обсуждалась</a> новость о другом не менее необычном патенте Microsoft. Тогда IT-гигант и один из самых значительных игроков на рынке нового поколения игровых консолей зарегистрировала идею контролировать доступ к медиа-контенту посредством устройства Kinect. На этот раз усилия разработчика направлены не на ограничение пользователя, а на мотивацию к потреблению контента.<br/>
+ <a href="http://habrahabr.ru/post/180943/#habracut">Читать дальше &rarr;</a>]]></description>
+
+            <pubDate>Sun, 26 May 2013 01:51:34 GMT</pubDate>
+            <author>volly</author>
+            <category><![CDATA[Патенты]]></category>
+            <category><![CDATA[Microsoft]]></category>
+            <category><![CDATA[Microsoft]]></category>
+            <category><![CDATA[Kinect]]></category>
+            <category><![CDATA[TV]]></category>
+            <category><![CDATA[патенты]]></category>
+        </item>
+
+
+    </channel>
+</rss>

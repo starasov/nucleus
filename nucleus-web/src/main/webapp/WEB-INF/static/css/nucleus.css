@@ -41,13 +41,17 @@ body {
     background-color: #fafafa;
     border: 1px solid #e3e3e3;
     overflow: hidden;
-}
-
-.feed-entry-read {
+    cursor: pointer;
 }
 
 .feed-entry-unread {
     font-weight: bold;
+}
+
+.feed-entry-long {
+    border: 1px solid #e3e3e3;
+    padding: 20px;
+    display: none; /* by default long description of an entry should not be visible */
 }
 
 .shadow-bottom, .shadow-top {
@@ -77,4 +81,9 @@ body {
 
 .navbar-entries-row {
     margin-bottom: -20px;
+}
+
+.empty-feed-message {
+    width: 100%;
+    text-align: center;
 }

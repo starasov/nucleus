@@ -1,5 +1,7 @@
 package net.nucleus.rss.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -45,6 +47,7 @@ public class FeedEntry {
         this.id = id;
     }
 
+    @JsonIgnore
     public Outline getFeed() {
         return feed;
     }
@@ -150,7 +153,6 @@ public class FeedEntry {
         sb.append(", openedFlag=").append(openedFlag);
         sb.append(", entryTimestamp=").append(entryTimestamp);
         sb.append(", id=").append(id);
-        sb.append(", feed=").append(feed.getId());
         sb.append('}');
         return sb.toString();
     }

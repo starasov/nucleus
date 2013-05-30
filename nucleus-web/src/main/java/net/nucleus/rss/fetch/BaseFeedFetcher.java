@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -31,7 +31,7 @@ public abstract class BaseFeedFetcher implements FeedFetcher {
         Assert.notNull(feed, "feed parameter can't be null.");
 
         try {
-            Set<FeedEntry> feedEntries = new HashSet<FeedEntry>();
+            Set<FeedEntry> feedEntries = new LinkedHashSet<FeedEntry>();
             fetchInternal(feed, feedEntries);
             return feedEntries;
         } catch (IOException e) {

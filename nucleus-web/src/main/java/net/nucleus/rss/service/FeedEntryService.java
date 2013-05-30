@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +34,11 @@ public class FeedEntryService {
         return entityManager.find(Outline.class, feedId);
     }
 
+    public long feedEntriesCount(Outline outline) {
+        return (Long) entityManager.createQuery("select count(e.id) from FeedEntry e where e.feed = :outline")
+                .setParameter("outline", outline).getSingleResult();
+    }
+
     public List<FeedEntry> findEntries(Outline outline, int offset, int pageSize) {
         return (List<FeedEntry>) entityManager.createQuery("select e from FeedEntry e where e.feed = :outline order by e.entryTimestamp")
                 .setParameter("outline", outline)
@@ -57,8 +61,7 @@ public class FeedEntryService {
      * @throws FeedEntryServiceException
      */
     @Transactional
-    @Cacheable("feed")
-    public void updateFeed(Outline outline) throws FeedEntryServiceException {
+    public Set<FeedEntry> updateFeed(Outline outline) throws FeedEntryServiceException {
         try {
             Set<FeedEntry> feedEntries = feedFetcher.fetch(outline);
 
@@ -70,6 +73,8 @@ public class FeedEntryService {
 
 
             persistNewFeedEntries(feedEntries, latestFeedEntry);
+
+            return feedEntries;
         } catch (FeedFetcherException e) {
             throw new FeedEntryServiceException("Failed to import entries.", e);
         }
@@ -81,7 +86,7 @@ public class FeedEntryService {
     }
 
     @Autowired
-    @Qualifier("local")
+    @Qualifier("decorator")
     public void setFeedFetcher(FeedFetcher feedFetcher) {
         this.feedFetcher = feedFetcher;
     }
