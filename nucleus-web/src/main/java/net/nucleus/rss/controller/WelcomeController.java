@@ -28,7 +28,7 @@ public class WelcomeController {
 
         List<FeedEntry> list = new ArrayList<FeedEntry>();
 
-        ModelAndView modelAndView = new ModelAndView("index");
+        ModelAndView modelAndView = new ModelAndView("feed");
         modelAndView.addObject("entries", list);
 
         logger.debug("[{}][index] - end", this.getClass().getSimpleName());

@@ -25,8 +25,8 @@ import java.io.IOException;
  * Time: 10:05 PM
  */
 @Service
-public class TestDataImportService implements ApplicationListener<ContextRefreshedEvent> {
-    private static final Logger logger = LoggerFactory.getLogger(TestDataImportService.class);
+public class FixturesImportService implements ApplicationListener<ContextRefreshedEvent> {
+    private static final Logger logger = LoggerFactory.getLogger(FixturesImportService.class);
 
     private EntityManager entityManager;
 

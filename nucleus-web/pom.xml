@@ -132,6 +132,13 @@
             <version>1.6.4</version>
         </dependency>
 
+        <!-- Object-to-object mapping. We need this for transformation of our entity models into response ones. -->
+        <dependency>
+            <groupId>net.sf.dozer</groupId>
+            <artifactId>dozer</artifactId>
+            <version>5.4.0</version>
+        </dependency>
+
         <!-- Unit testing and friends -->
         <dependency>
             <groupId>junit</groupId>

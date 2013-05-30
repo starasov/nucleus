@@ -24,7 +24,7 @@ public class Outline {
     @ManyToOne(optional = false)
     private User user;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<Outline> children = new ArrayList<Outline>();
 
     @Enumerated(EnumType.STRING)

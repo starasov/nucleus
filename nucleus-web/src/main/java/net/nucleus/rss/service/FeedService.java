@@ -24,21 +24,34 @@ import java.util.Set;
  * Time: 7:27 PM
  */
 @Service
-public class FeedEntryService {
-    private static final Logger logger = LoggerFactory.getLogger(FeedEntryService.class);
+public class FeedService {
+    private static final Logger logger = LoggerFactory.getLogger(FeedService.class);
 
     private EntityManager entityManager;
     private FeedFetcher feedFetcher;
 
+    @Transactional(readOnly = true)
+    public Outline findRootOutline(User user) {
+        List resultList = entityManager.createQuery("select f from Outline f left join fetch f.children where f.user = :user order by f.parent.id asc")
+                .setParameter("user", user)
+                .getResultList();
+        logger.debug("[findRootOutline] - resultList: {}", resultList);
+
+        return (Outline) resultList.get(resultList.size() - 1);
+    }
+
+    @Transactional(readOnly = true)
     public Outline findFeed(User user, int feedId) {
         return entityManager.find(Outline.class, feedId);
     }
 
+    @Transactional(readOnly = true)
     public long feedEntriesCount(Outline outline) {
         return (Long) entityManager.createQuery("select count(e.id) from FeedEntry e where e.feed = :outline")
                 .setParameter("outline", outline).getSingleResult();
     }
 
+    @Transactional(readOnly = true)
     public List<FeedEntry> findEntries(Outline outline, int offset, int pageSize) {
         return (List<FeedEntry>) entityManager.createQuery("select e from FeedEntry e where e.feed = :outline order by e.entryTimestamp")
                 .setParameter("outline", outline)

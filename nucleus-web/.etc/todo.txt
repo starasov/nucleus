@@ -2,6 +2,9 @@
 * [UI] Custom scroller for feeds tree.
 * [UI] Delayed images loading
 * [UI] Configure feeds and scroller widths
+* [UI] Tree view for feeds
+* [UI] Make feed entries background darker
+* [UI] Error messages
 
 * [Config] Maven dependencies for NotNull
 * [Config] Complete JPA configuration for Spring
@@ -12,8 +15,3 @@
 * [Backend] Spring security (if needed)
 * [Backend] Caching
 * [Backend] Review HTML sanitizer configuration
-
-* JSON mapping
-* Ajax feeds loading
-* Determine how to handle scroll-to-the-bottom event
-* In-memory feed implementation

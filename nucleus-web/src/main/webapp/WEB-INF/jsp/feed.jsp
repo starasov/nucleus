@@ -2,6 +2,7 @@
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <spring:url value="/feed" var="basePath" htmlEscape="true"/>
 <spring:url value="/static" var="resources" htmlEscape="true"/>
@@ -28,6 +29,7 @@
     <!-- AngularJS components should be placed under head element, otherwise the framework won't initialize correctly. -->
     <script src="${resources}/js/angular.js"></script>
     <script src="${resources}/js/feedscontroller.js"></script>
+    <script src="${resources}/js/outlinecontroller.js"></script>
 
     <!-- Fav and touch icons -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144"
@@ -81,23 +83,8 @@
         <!-- Sidebar with feeds tree -->
         <div class="span2">
             <div class="well sidebar-nav">
-                <ul class="nav nav-list">
-                    <li class="nav-header">Sidebar</li>
-                    <li class="active"><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li class="nav-header">Sidebar</li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li class="nav-header">Sidebar</li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
+                <ul ng-controller="OutlineController">
+                    <li ng-repeat="c in outline.children" ng-include="'outline_template.html'"></li>
                 </ul>
             </div>
         </div>

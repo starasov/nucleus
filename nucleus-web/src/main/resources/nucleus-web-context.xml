@@ -69,6 +69,11 @@
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
+    <!-- Dozer Mappings -->
+    <bean id="mapper" class="org.dozer.DozerBeanMapper">
+
+    </bean>
+
     <!-- MVC -->
     <mvc:annotation-driven/>
 
