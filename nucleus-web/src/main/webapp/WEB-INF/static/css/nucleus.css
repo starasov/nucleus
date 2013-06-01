@@ -88,3 +88,8 @@ body {
     width: 100%;
     text-align: center;
 }
+
+/* Outline */
+.outline-tree {
+    padding: 0;
+}

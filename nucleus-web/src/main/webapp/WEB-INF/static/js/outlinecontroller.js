@@ -11,7 +11,7 @@ function OutlineController($scope, $http, $interpolate) {
     };
 
     $scope.fitScreen = function () {
-        Nucleus.fitScreen('#outline', 60);
+        Nucleus.fitScreen('#outline', 20);
     };
 
     $(window).resize(function () {
