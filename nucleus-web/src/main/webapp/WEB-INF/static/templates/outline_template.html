@@ -1,0 +1,5 @@
+<li class="nav-header" ng-if="!c.children.length"><a href="{{feedUrl(c.id)}}">{{c.title}}</a></li>
+<li class="nav-header" ng-if="c.children.length">{{c.title}}</li>
+<ul class="nav nav-list" ng-if="c.children.length">
+    <li ng-repeat="c in c.children" ng-include="outlineTemplate"></li>
+</ul>

@@ -47,7 +47,7 @@
     <link rel="shortcut icon" href="http://twitter.github.io/bootstrap/assets/ico/favicon.png">
 </head>
 
-<body ng-init="feedId='${feed.id}'; basePath='${basePath}'; totalEntryPages=${totalEntryPages}">
+<body ng-init="feedId='${feed.id}'; basePath='${basePath}'; totalEntryPages=${totalEntryPages}; resources='${resources}';">
 
 <!-- Top navigation bar -->
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -82,9 +82,9 @@
 
         <!-- Sidebar with feeds tree -->
         <div class="span2">
-            <div class="well sidebar-nav">
-                <ul ng-controller="OutlineController">
-                    <li ng-repeat="c in outline.children" ng-include="'outline_template.html'"></li>
+            <div id="outline" class="well sidebar-nav scrollable" style="margin-bottom: 0">
+                <ul class="nav nav-list" ng-controller="OutlineController">
+                    <li ng-repeat="c in outline.children" ng-include="outlineTemplate"></li>
                 </ul>
             </div>
         </div>
@@ -140,15 +140,15 @@
             <!-- Our pretty shadow goes here -->
             <div class="span10 affix shadow-top" style="margin-left: -20px;"></div>
 
-            <!-- Empty list message -->
-            <div class="span6 offset2 hero-unit" ng-hide="entries.length">
-                <h4 class="brand empty-feed-message">
-                    Ooops... We could not find anything interesting for you here.
-                </h4>
-            </div>
-
             <!-- Feed entries list -->
             <div id="content" class="row-fluid scrollable">
+                <!-- Empty list message -->
+                <div class="span6 offset2 hero-unit" ng-hide="entries.length">
+                    <h4 class="brand empty-feed-message">
+                        Ooops... We could not find anything interesting for you here.
+                    </h4>
+                </div>
+
                 <div ng-repeat="entry in entries">
                     <div id="{{entry.id}}" class="feed-entry" ng-click="processEntryClick(entry)">
                         <div class="feed-entry-short" style="">

@@ -38,12 +38,16 @@ function FeedsController($scope, $http, $interpolate) {
 
         if ($scope.config.hasMorePages()) {
             $scope.loadingEntries = true;
-            $http.get($interpolate("{{basePath}}/{{feedId}}/entries/?page={{page}}")($scope.config)).success(function (data) {
+
+            var url = $interpolate("{{basePath}}/{{feedId}}/entries/?page={{page}}")($scope.config);
+            console.log("[FeedsController][loadMoreEntries] - url:  %s", url);
+
+            $http.get(url).success(function (data) {
                 $scope.entries = $scope.entries.concat(data);
+                $scope.config.page += 1;
                 $scope.loadingEntries = false;
             });
 
-            $scope.config.page += 1;
         } else {
             console.log("[FeedsController][loadMoreEntries] - last page reached - nothing to load");
         }
@@ -83,12 +87,7 @@ function FeedsController($scope, $http, $interpolate) {
     };
 
     $scope.fitScreen = function () {
-        var contentElement = $('#content');
-
-        var windowHeight = $(window).height();
-        var expectedHeight = windowHeight - contentElement.offset().top - 20;
-
-        contentElement.css({'height': expectedHeight + 'px'});
+        Nucleus.fitScreen('#content', 20);
     };
 
     $scope.ready = function () {
@@ -97,17 +96,18 @@ function FeedsController($scope, $http, $interpolate) {
             $scope.fitScreen();
         });
 
-
         // Tracks scroll events and load more elements if necessary
         var contentDiv = $('#content');
         $(contentDiv).scroll(function () {
             if (Nucleus.isScrollBottom(contentDiv)) {
-                $scope.loadMoreEntries();
+                // loadMoreEntires is called through the $apply binding because we are currently in jquery context, not
+                // AngularJS.
+                $scope.$apply($scope.loadMoreEntries);
             }
         });
     };
 
     $scope.ready();
-    $scope.loadMoreEntries();
     $scope.fitScreen();
+    $scope.loadMoreEntries();
 }
