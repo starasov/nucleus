@@ -82,7 +82,20 @@
 
         <!-- Sidebar with feeds tree -->
         <div class="span2">
-            <div id="outline" class="well sidebar-nav scrollable outline-tree" style="margin-bottom: 0">
+            <%--<div class="navbar">--%>
+            <%--<div class="navbar-inner">--%>
+            <%--<div class="container-fluid">--%>
+            <%--<ul class="nav pull-left">--%>
+            <%--<li class="brand">Subscriptions</li>--%>
+            <%--</ul>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+
+            <!-- Our pretty shadow goes here -->
+            <%--<div class="span2 affix shadow-top" style="margin-left: -10px;"></div>--%>
+
+            <div id="outline" class="well sidebar-nav scrollable outline-tree" style="margin-bottom: 0;">
                 <ul class="nav nav-list" ng-controller="OutlineController">
                     <li ng-repeat="c in outline.children" ng-include="outlineTemplate"></li>
                 </ul>
