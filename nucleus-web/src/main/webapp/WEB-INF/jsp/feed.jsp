@@ -82,20 +82,22 @@
 
         <!-- Sidebar with feeds tree -->
         <div class="span2">
-            <%--<div class="navbar">--%>
-            <%--<div class="navbar-inner">--%>
-            <%--<div class="container-fluid">--%>
-            <%--<ul class="nav pull-left">--%>
-            <%--<li class="brand">Subscriptions</li>--%>
-            <%--</ul>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
+            <div class="row-fluid navbar-entries-row">
+                <div class="navbar">
+                    <div class="navbar-inner navbar-entries">
+                        <div class="container-fluid">
+                            <ul class="nav pull-left">
+                                <li class="brand">Subscriptions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Our pretty shadow goes here -->
-            <%--<div class="span2 affix shadow-top" style="margin-left: -10px;"></div>--%>
+            <div class="span2 affix shadow-top" style="margin-left: -10px;"></div>
 
-            <div id="outline" class="well sidebar-nav scrollable outline-tree" style="margin-bottom: 0;">
+            <div id="outline" class="well sidebar-nav scrollable outline-tree">
                 <ul class="nav nav-list" ng-controller="OutlineController">
                     <li ng-repeat="c in outline.children" ng-include="outlineTemplate"></li>
                 </ul>
@@ -163,8 +165,8 @@
                 </div>
 
                 <div ng-repeat="entry in entries">
-                    <div id="{{entry.id}}" class="feed-entry" ng-click="processEntryClick(entry)">
-                        <div class="feed-entry-short" style="">
+                    <div id="{{entry.id}}" ng-click="processEntryClick(entry)">
+                        <div class="feed-entry-short">
                             <!-- For unread entries 'feed-entry-unread' class is applied -->
                             <span ng-class="{'feed-entry-unread': !entry.read}">{{entry.title}}</span>
                         </div>

@@ -92,4 +92,15 @@ body {
 /* Outline */
 .outline-tree {
     padding: 0;
+    margin-bottom: 0;
+    -webkit-border-radius: 0 0 4px 4px;
+    -moz-border-radius: 0 0 4px 4px;
+    border-radius: 0 0 4px 4px;
+}
+
+.outline-element {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: list-item;
 }
