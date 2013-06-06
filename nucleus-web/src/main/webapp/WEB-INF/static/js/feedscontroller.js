@@ -87,7 +87,7 @@ function FeedsController($scope, $http, $interpolate) {
     };
 
     $scope.fitScreen = function () {
-        Nucleus.fitScreen('#content', 20);
+        Nucleus.fitScreen('#content', 0);
     };
 
     $scope.ready = function () {

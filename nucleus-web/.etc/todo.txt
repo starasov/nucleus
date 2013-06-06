@@ -1,12 +1,11 @@
-* [UI] Feeds tree.
 * [UI] Custom scroller for feeds tree.
-* [UI] Delayed images loading
++ [UI] Delayed images loading
 * [UI] Configure feeds and scroller widths
 * [UI] Tree view for feeds
 * [UI] Make feed entries background darker
 * [UI] Error messages
 
-* [Config] Maven dependencies for NotNull
++ [Config] Maven dependencies for NotNull
 * [Config] Complete JPA configuration for Spring
 * [Backend] Finalize mapping for feeds and folders
 * [Backend] Finalize initial import from OMPL

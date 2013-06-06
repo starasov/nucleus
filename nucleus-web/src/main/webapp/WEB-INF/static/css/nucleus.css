@@ -1,7 +1,7 @@
 /* Globals */
 body {
-    padding-top: 60px;
-    padding-bottom: 20px;
+    padding-top: 40px;
+    padding-bottom: 0;
 }
 
 /* Custom scrollable element */
@@ -57,15 +57,15 @@ body {
 
 .shadow-bottom, .shadow-top {
     opacity: 0.8;
-    min-height: 8px !important;
-    height: 8px;
+    min-height: 4px !important;
+    height: 4px;
     z-index: 9999;
 }
 
 .shadow-top {
     border-top: 1px solid rgba(0, 0, 0, 0.4);
     background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, .3)), to(rgba(0, 0, 0, 0)));
-    -webkit-mask-box-image: -webkit-gradient(linear, left top, right top, color-stop(0.0, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(0, 0, 0, .8)), color-stop(1.0, rgba(0, 0, 0, 0)));
+    -webkit-mask-box-image: -webkit-gradient(linear, left top, right top, color-stop(0.0, rgba(0, 0, 0, 0.6)), color-stop(0.5, rgba(0, 0, 0, .8)), color-stop(1.0, rgba(0, 0, 0, 0.6)));
 }
 
 .shadow-bottom {

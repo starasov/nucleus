@@ -62,40 +62,63 @@
             <a class="brand" href="#">Nucleus</a>
 
             <div class="nav-collapse collapse">
-                <p class="navbar-text pull-right">
-                    Logged in as <a href="#" class="navbar-link">Username</a>
-                </p>
+                <ul class="nav pull-right">
+                    <li><a href="#" ng-click="refreshFeed()"><i class="icon-repeat"></i> Refresh</a></li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-ok"></i> Mark As Read <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action1</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Logout</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-cog"></i> Settings <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
                 <ul class="nav">
-                    <li class="active"><a href="#">Feeds</a></li>
+                    <li class="active"><a href="/">Feeds</a></li>
                     <li><a href="#">Digest</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
+
+                <ul class="nav pull-left">
+                    <%--<li><a class="brand" target="_blank" href="${feed.htmlUrl}">${feed.title}</a></li>--%>
+                    <!-- Loading spinner for entries loading operation -->
+                    <li><i class="brand icon-spinner icon-spin icon-large" ng-show="loadingEntries"></i>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
+
+    <div class="affix shadow-top" style="width: 100%"></div>
 </div>
 
 <!-- Feeds container -->
-<div class="container-fluid">
+<div class="container-fluid" style="margin: 0; padding: 0">
     <div class="row-fluid">
-
         <!-- Sidebar with feeds tree -->
-        <div class="span2">
-            <div class="row-fluid navbar-entries-row">
-                <div class="navbar">
-                    <div class="navbar-inner navbar-entries">
-                        <div class="container-fluid">
-                            <ul class="nav pull-left">
-                                <li class="brand">Subscriptions</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+        <div class="span2" style="width: 15%; margin: 0; padding: 0;">
             <!-- Our pretty shadow goes here -->
-            <div class="span2 affix shadow-top" style="margin-left: -10px;"></div>
+            <%--<div class="span2 affix shadow-top" style="margin-left: -10px;"></div>--%>
 
             <div id="outline" class="well sidebar-nav scrollable outline-tree">
                 <ul class="nav nav-list" ng-controller="OutlineController">
@@ -104,56 +127,9 @@
             </div>
         </div>
 
-        <div class="span10" ng-controller="FeedsController">
-            <!-- Feed details and control bar -->
-            <div class="row-fluid navbar-entries-row">
-                <div class="navbar">
-                    <div class="navbar-inner navbar-entries">
-                        <div class="container-fluid">
-                            <ul class="nav pull-left">
-                                <li><a class="brand" target="_blank" href="${feed.htmlUrl}">${feed.title}</a></li>
-                                <!-- Loading spinner for entries loading operation -->
-                                <li><i class="brand icon-spinner icon-spin icon-large" ng-show="loadingEntries"></i>
-                                </li>
-                            </ul>
-
-                            <ul class="nav pull-right">
-                                <li><a href="#" ng-click="refreshFeed()"><i class="icon-repeat"></i> Refresh</a></li>
-
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="icon-ok"></i> Mark As Read <b class="caret"></b>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Action1</a></li>
-                                        <li><a href="#">Another action</a></li>
-                                        <li><a href="#">Something else here</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Separated link</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="icon-cog"></i> Settings <b class="caret"></b>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Action</a></li>
-                                        <li><a href="#">Another action</a></li>
-                                        <li><a href="#">Something else here</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Separated link</a></li>
-                                    </ul>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+        <div class="span10" ng-controller="FeedsController" style="width: 85%; margin: 0; padding: 0;">
             <!-- Our pretty shadow goes here -->
-            <div class="span10 affix shadow-top" style="margin-left: -20px;"></div>
+            <%--<div class="span10 affix shadow-top" style="margin-left: -20px;"></div>--%>
 
             <!-- Feed entries list -->
             <div id="content" class="row-fluid scrollable">
