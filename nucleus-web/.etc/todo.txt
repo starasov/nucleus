@@ -1,9 +1,12 @@
 * [UI] Custom scroller for feeds tree.
 + [UI] Delayed images loading
-* [UI] Configure feeds and scroller widths
++ [UI] Configure feeds and scroller widths
 * [UI] Tree view for feeds
 * [UI] Make feed entries background darker
 * [UI] Error messages
+* [UI] Check AngularJS routing
+* [UI] Change AngularJS controllers to follow best practices
+* [UI] Move styles under css
 
 + [Config] Maven dependencies for NotNull
 * [Config] Complete JPA configuration for Spring

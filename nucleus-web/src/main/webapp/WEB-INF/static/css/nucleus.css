@@ -55,23 +55,15 @@ body {
     display: none; /* by default long description of an entry should not be visible */
 }
 
-.shadow-bottom, .shadow-top {
+.shadow-top {
+    width: 100%;
     opacity: 0.8;
     min-height: 4px !important;
     height: 4px;
     z-index: 9999;
-}
-
-.shadow-top {
     border-top: 1px solid rgba(0, 0, 0, 0.4);
     background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, .3)), to(rgba(0, 0, 0, 0)));
     -webkit-mask-box-image: -webkit-gradient(linear, left top, right top, color-stop(0.0, rgba(0, 0, 0, 0.6)), color-stop(0.5, rgba(0, 0, 0, .8)), color-stop(1.0, rgba(0, 0, 0, 0.6)));
-}
-
-.shadow-bottom {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-    background: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, .3)), to(rgba(0, 0, 0, 0)));
-    -webkit-mask-box-image: -webkit-gradient(linear, left bottom, right bottom, color-stop(0.0, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(0, 0, 0, .8)), color-stop(1.0, rgba(0, 0, 0, 0)));
 }
 
 .navbar-entries {

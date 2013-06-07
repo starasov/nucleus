@@ -8,7 +8,8 @@
 <spring:url value="/static" var="resources" htmlEscape="true"/>
 
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en" ng-app
+      ng-init="feedId='${feed.id}'; basePath='${basePath}'; totalEntryPages=${totalEntryPages}; resources='${resources}';">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -47,7 +48,7 @@
     <link rel="shortcut icon" href="http://twitter.github.io/bootstrap/assets/ico/favicon.png">
 </head>
 
-<body ng-init="feedId='${feed.id}'; basePath='${basePath}'; totalEntryPages=${totalEntryPages}; resources='${resources}';">
+<body ng-controller="FeedsController">
 
 <!-- Top navigation bar -->
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -98,28 +99,23 @@
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
-
-                <ul class="nav pull-left">
-                    <%--<li><a class="brand" target="_blank" href="${feed.htmlUrl}">${feed.title}</a></li>--%>
-                    <!-- Loading spinner for entries loading operation -->
-                    <li><i class="brand icon-spinner icon-spin icon-large" ng-show="loadingEntries"></i>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
 
-    <div class="affix shadow-top" style="width: 100%"></div>
+    <div class="affix shadow-top"></div>
 </div>
 
 <!-- Feeds container -->
 <div class="container-fluid" style="margin: 0; padding: 0">
+    <div class="alert" style="z-index: 9999; position: absolute; margin-top: -20px; margin-left: 45%;"
+         ng-show="loadingEntries">
+        <strong>Loading...</strong>
+    </div>
+
     <div class="row-fluid">
         <!-- Sidebar with feeds tree -->
         <div class="span2" style="width: 15%; margin: 0; padding: 0;">
-            <!-- Our pretty shadow goes here -->
-            <%--<div class="span2 affix shadow-top" style="margin-left: -10px;"></div>--%>
-
             <div id="outline" class="well sidebar-nav scrollable outline-tree">
                 <ul class="nav nav-list" ng-controller="OutlineController">
                     <li ng-repeat="c in outline.children" ng-include="outlineTemplate"></li>
@@ -127,11 +123,8 @@
             </div>
         </div>
 
-        <div class="span10" ng-controller="FeedsController" style="width: 85%; margin: 0; padding: 0;">
-            <!-- Our pretty shadow goes here -->
-            <%--<div class="span10 affix shadow-top" style="margin-left: -20px;"></div>--%>
-
-            <!-- Feed entries list -->
+        <!-- Feed entries list -->
+        <div class="span10" style="width: 85%; margin: 0; padding: 0;">
             <div id="content" class="row-fluid scrollable">
                 <!-- Empty list message -->
                 <div class="span6 offset2 hero-unit" ng-hide="entries.length">
