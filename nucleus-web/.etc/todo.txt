@@ -1,15 +1,19 @@
 * [UI] Custom scroller for feeds tree.
-+ [UI] Delayed images loading
-+ [UI] Configure feeds and scroller widths
+* [UI] Delayed images loading
 * [UI] Tree view for feeds
 * [UI] Make feed entries background darker
 * [UI] Error messages
 * [UI] Check AngularJS routing
 * [UI] Change AngularJS controllers to follow best practices
 * [UI] Move styles under css
+* [UI] Login page
+* [UI] Import OMPL page
 
-+ [Config] Maven dependencies for NotNull
 * [Config] Complete JPA configuration for Spring
+* [Config] HTTPS support
+* [Config] Extract Google OAuth2 integration configuration options to external file
+* [Config] Add Spring profiles to handle dev vs. prod environments
+
 * [Backend] Finalize mapping for feeds and folders
 * [Backend] Finalize initial import from OMPL
 * [Backend] Google authentication

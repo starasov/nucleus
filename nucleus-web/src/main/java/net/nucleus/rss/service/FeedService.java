@@ -35,7 +35,6 @@ public class FeedService {
         List resultList = entityManager.createQuery("select f from Outline f left join fetch f.children where f.user = :user order by f.parent.id asc")
                 .setParameter("user", user)
                 .getResultList();
-        logger.debug("[findRootOutline] - resultList: {}", resultList);
 
         return (Outline) resultList.get(resultList.size() - 1);
     }

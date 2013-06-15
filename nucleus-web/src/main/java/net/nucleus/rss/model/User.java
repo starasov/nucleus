@@ -15,6 +15,7 @@ public class User {
     private int id;
 
     private String username;
+    private String googleId;
 
     public int getId() {
         return id;
@@ -30,5 +31,13 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getGoogleId() {
+        return googleId;
+    }
+
+    public void setGoogleId(String googleId) {
+        this.googleId = googleId;
     }
 }

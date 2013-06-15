@@ -16,6 +16,8 @@
         <rome.version>1.0</rome.version>
         <junit.version>4.11</junit.version>
         <jstl.version>1.2</jstl.version>
+        <servlet.version>2.5</servlet.version>
+        <httpclient.version>4.2.5</httpclient.version>
     </properties>
 
     <dependencies>
@@ -26,12 +28,19 @@
             <version>${slf4j.version}</version>
         </dependency>
 
+        <!-- Servlet API -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- JSTL library -->
         <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
-            <!--<scope>provided</scope>-->
         </dependency>
 
         <!-- Apache commons, Guava and other sugar libraries goes here -->
@@ -39,6 +48,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
         </dependency>
 
         <dependency>

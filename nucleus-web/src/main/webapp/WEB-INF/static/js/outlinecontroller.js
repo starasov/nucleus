@@ -14,6 +14,10 @@ function OutlineController($scope, $http, $interpolate) {
         Nucleus.fitScreen('#outline', 2);
     };
 
+    $scope.elementStyle = function (outline) {
+        return outline.id == $scope.feedId ? "outline-active" : "outline-header";
+    };
+
     $(window).resize(function () {
         $scope.fitScreen();
     });

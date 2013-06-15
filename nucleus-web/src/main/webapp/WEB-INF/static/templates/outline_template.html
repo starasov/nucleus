@@ -1,10 +1,13 @@
 <!-- Outline feed element (has no children, but title and link) -->
-<li class="nav-header outline-element" ng-if="!c.children.length">
+<li class="outline-header outline-element" ng-if="!c.children.length">
+    <!-- Unread count for further use -->
+    <!--<span class="badge badge-info">8</span>-->
+
     <a title="{{c.title}}" href="{{feedUrl(c.id)}}" style="cursor: hand;">{{c.title}}</a>
 </li>
 
 <!-- Outline folder element (has children and title) -->
-<li class="nav-header outline-element" ng-if="c.children.length">{{c.title}}</li>
+<li class="outline-header outline-element" ng-if="c.children.length">{{c.title}}</li>
 <ul class="nav nav-list" ng-if="c.children.length">
     <li ng-repeat="c in c.children" ng-include="outlineTemplate"></li>
 </ul>

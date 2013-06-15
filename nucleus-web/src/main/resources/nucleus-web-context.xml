@@ -70,27 +70,23 @@
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <!-- Dozer Mappings -->
-    <bean id="mapper" class="org.dozer.DozerBeanMapper">
+    <bean id="mapper" class="org.dozer.DozerBeanMapper"/>
 
-    </bean>
+    <!-- REST client helper -->
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
 
     <!-- MVC -->
     <mvc:annotation-driven/>
 
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="messageConverters">
             <list>
                 <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
                 <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
                 <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
-                <bean class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter"/>
-                <ref bean="jsonConverter"/>
+                <bean class="org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter"/>
             </list>
         </property>
-    </bean>
-
-    <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
-        <property name="supportedMediaTypes" value="application/json"/>
     </bean>
 
     <!-- To enable @RequestMapping process on type level and method level -->
@@ -105,7 +101,20 @@
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp" p:order="2"/>
 
-
     <!-- Static resources handling for application images, css and js -->
     <mvc:resources mapping="/static/**" location="/WEB-INF/static/"/>
+
+    <!-- Development environment profile -->
+    <beans profile="dev">
+        <bean class="net.nucleus.rss.auth.google.GoogleClientConfig">
+            <property name="clientId" value="1064807837259.apps.googleusercontent.com"/>
+            <property name="clientSecret" value="NiSsnfNnM4Y242S_MjAoFddK"/>
+            <property name="redirectUri" value="http://localhost:8080/auth/google_callback"/>
+        </bean>
+    </beans>
+
+    <!-- Production environment profile -->
+    <beans profile="prod">
+
+    </beans>
 </beans>

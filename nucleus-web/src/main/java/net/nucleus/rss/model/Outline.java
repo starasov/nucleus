@@ -36,6 +36,8 @@ public class Outline {
     private String xmlUrl;
     private String htmlUrl;
 
+    private int unreadCount;
+
     public int getId() {
         return id;
     }
@@ -110,6 +112,14 @@ public class Outline {
 
     public void setHtmlUrl(String htmlUrl) {
         this.htmlUrl = htmlUrl;
+    }
+
+    public int getUnreadCount() {
+        return unreadCount;
+    }
+
+    public void setUnreadCount(int unreadCount) {
+        this.unreadCount = unreadCount;
     }
 
     @Override
