@@ -110,6 +110,6 @@ public class FeedController {
     }
 
     private User getLoggedInUser() {
-        return userService.login();
+        return userService.login("test");
     }
 }

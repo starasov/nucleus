@@ -11,6 +11,7 @@
     <properties>
         <!-- Keep dependency versions here -->
         <spring.version>3.2.2.RELEASE</spring.version>
+        <spring.security.version>3.1.4.RELEASE</spring.security.version>
         <hibernate.version>4.2.1.Final</hibernate.version>
         <slf4j.version>1.7.5</slf4j.version>
         <rome.version>1.0</rome.version>
@@ -112,6 +113,25 @@
             <version>${spring.version}</version>
         </dependency>
 
+        <!-- Spring Security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
         <!-- HTML sanitizer -->
         <dependency>
             <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
@@ -132,7 +152,7 @@
             <version>${rome.version}</version>
         </dependency>
 
-        <!-- Caching -->
+        <!-- Caching Backend -->
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>

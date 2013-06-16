@@ -57,7 +57,7 @@ public class AuthenticationController {
      * 4. Redirect to landing page
      *
      * @param request a callback request sent by Google
-     * @return redirect to feeds page if authentication was successful or back to login page otherwise.
+     * @return redirect to the feeds page if authentication was successful or back to the login page otherwise.
      */
     @RequestMapping("/google_callback")
     public String googleCallback(HttpServletRequest request) throws Exception {

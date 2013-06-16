@@ -1,6 +1,7 @@
 package net.nucleus.rss.service;
 
 import net.nucleus.rss.model.User;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,8 +18,10 @@ public class UserService {
     private EntityManager entityManager;
 
     @Transactional(readOnly = true)
-    public User login() {
-        return (User) entityManager.createQuery("select u from User u where u.username = 'test'").getSingleResult();
+    public User login(@NotNull String username) {
+        return (User) entityManager.createQuery("select u from User u where u.username = :username")
+                .setParameter("username", username)
+                .getSingleResult();
     }
 
     @PersistenceContext
