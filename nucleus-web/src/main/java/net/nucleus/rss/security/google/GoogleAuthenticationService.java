@@ -1,4 +1,4 @@
-package net.nucleus.rss.auth.google;
+package net.nucleus.rss.security.google;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * User: starasov
@@ -34,9 +35,18 @@ public class FixturesImportService implements ApplicationListener<ContextRefresh
     public void importTestData() throws OpmlImporterException, IOException {
         logger.debug("[importTestData] - begin");
 
-        User user = new User();
-        user.setUsername("test");
-        entityManager.persist(user);
+        String username = "Sergey Tarasov";
+        List users = entityManager.createQuery("select u from User u where u.username = :username")
+                .setParameter("username", username).getResultList();
+
+        User user;
+        if (users.isEmpty()) {
+            user = new User();
+            user.setUsername(username);
+            entityManager.persist(user);
+        } else {
+            user = (User) users.get(0);
+        }
 
         long count = (Long) entityManager.createQuery("select count(o) from Outline o").getSingleResult();
         logger.debug("[importTestData] - imported count: {}", count);

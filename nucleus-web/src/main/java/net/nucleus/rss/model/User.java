@@ -8,7 +8,10 @@ import javax.persistence.*;
  * Time: 11:11 PM
  */
 @Entity
-@Table(name = "users")
+@Table(
+        name = "users",
+        uniqueConstraints = @UniqueConstraint(columnNames = "username")
+)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

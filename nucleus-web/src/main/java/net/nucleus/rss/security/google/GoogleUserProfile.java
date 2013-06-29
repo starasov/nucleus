@@ -1,4 +1,4 @@
-package net.nucleus.rss.auth.google;
+package net.nucleus.rss.security.google;
 
 /**
  * User: starasov

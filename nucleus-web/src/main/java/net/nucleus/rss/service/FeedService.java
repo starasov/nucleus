@@ -36,7 +36,7 @@ public class FeedService {
                 .setParameter("user", user)
                 .getResultList();
 
-        return (Outline) resultList.get(resultList.size() - 1);
+        return resultList.isEmpty() ? new Outline() : (Outline) resultList.get(resultList.size() - 1);
     }
 
     @Transactional(readOnly = true)
@@ -72,7 +72,7 @@ public class FeedService {
      * @param outline
      * @throws FeedEntryServiceException
      */
-    @Transactional
+    @Transactional(readOnly = false)
     public Set<FeedEntry> updateFeed(Outline outline) throws FeedEntryServiceException {
         try {
             Set<FeedEntry> feedEntries = feedFetcher.fetch(outline);

@@ -1,79 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:cache="http://www.springframework.org/schema/cache"
-       xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
-        http://www.springframework.org/schema/cache
-        http://www.springframework.org/schema/cache/spring-cache.xsd">
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!-- Core -->
-    <!-- Scans and configures all annotation-based components -->
+    <!-- Keep next 3 lines in place -->
+    <!-- It doesn't look like Spring share annotation processing between root and MVC contexts -->
     <context:component-scan base-package="net.nucleus.rss"/>
-
     <context:annotation-config/>
-
-    <!-- Caching -->
-    <cache:annotation-driven/>
-    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager" p:cacheManager-ref="ehcache"/>
-    <bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
-          p:configLocation="classpath:ehcache.xml"/>
-
-    <!-- Persistence and transaction management -->
-    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
-    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
-    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
-
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="org.postgresql.Driver"/>
-        <property name="url" value="jdbc:postgresql://localhost/nucleus_dev"/>
-        <property name="username" value="postgres"/>
-        <property name="password" value="admin"/>
-    </bean>
-
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="packagesToScan" value="net.nucleus.rss"/>
-
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="database" value="POSTGRESQL"/>
-            </bean>
-        </property>
-
-        <property name="jpaProperties">
-            <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL82Dialect</prop>
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
-                <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.format_sql">true</prop>
-                <prop key="hibernate.connection.autocommit">false</prop>
-            </props>
-        </property>
-    </bean>
-
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory"/>
-    </bean>
-
     <tx:annotation-driven transaction-manager="transactionManager"/>
-
-    <!-- Dozer Mappings -->
-    <bean id="mapper" class="org.dozer.DozerBeanMapper"/>
-
-    <!-- REST client helper -->
-    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
 
     <!-- MVC -->
     <mvc:annotation-driven/>
@@ -103,18 +48,4 @@
 
     <!-- Static resources handling for application images, css and js -->
     <mvc:resources mapping="/static/**" location="/WEB-INF/static/"/>
-
-    <!-- Development environment profile -->
-    <beans profile="dev">
-        <bean class="net.nucleus.rss.auth.google.GoogleClientConfig">
-            <property name="clientId" value="1064807837259.apps.googleusercontent.com"/>
-            <property name="clientSecret" value="NiSsnfNnM4Y242S_MjAoFddK"/>
-            <property name="redirectUri" value="http://localhost:8080/auth/google_callback"/>
-        </bean>
-    </beans>
-
-    <!-- Production environment profile -->
-    <beans profile="prod">
-
-    </beans>
 </beans>

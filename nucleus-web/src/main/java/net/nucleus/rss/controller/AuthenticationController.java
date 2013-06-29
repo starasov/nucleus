@@ -1,14 +1,9 @@
 package net.nucleus.rss.controller;
 
-import net.nucleus.rss.auth.google.GoogleAuthenticationService;
-import net.nucleus.rss.auth.google.GoogleUserProfile;
-import org.apache.commons.lang3.StringUtils;
+import net.nucleus.rss.security.google.GoogleAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Handles authentication workflows.
@@ -39,38 +34,9 @@ public class AuthenticationController {
         return "redirect:" + authorizationUrl;
     }
 
-    /**
-     * Handles callback from Google OAuth2 service.
-     * <p/>
-     * Sample response from Google (success):
-     * http://localhost:8080/auth/google_callback?code=4/0cdUS_TCmXPjUQMdfxruvn7325ww.Es3poH-izQ4VmmS0T3UFEsMW33VWfgI#/0cdUS_TCmXPjUQMdfxruvn7325ww.Es3poH-izQ4VmmS0T3UFEsMW33VWfgI
-     * <p/>
-     * Sample response from Google (failure):
-     * http://localhost:8080/auth/google_callback?error=access_denied#/google_callback?error=access_denied
-     * <p/>
-     * In case if response is successful following user identification steps are performed:
-     * 1. We obtain access token from Google.
-     * 2. Using access token we request user profile information.
-     * 3. Using user profile information
-     * 3.1 Create new account (if doesn't exists)
-     * 3.2 Login user
-     * 4. Redirect to landing page
-     *
-     * @param request a callback request sent by Google
-     * @return redirect to the feeds page if authentication was successful or back to the login page otherwise.
-     */
-    @RequestMapping("/google_callback")
-    public String googleCallback(HttpServletRequest request) throws Exception {
-        String code = request.getParameter("code");
-        String error = request.getParameter("error");
-
-        if (StringUtils.isBlank(code)) {
-            return UriComponentsBuilder.fromUriString("redirect:/auth/login").queryParam("error", error).build().toUriString();
-        }
-
-        GoogleUserProfile googleUserProfile = googleAuthenticationService.authenticate(code);
-
-        return "redirect:welcome";
+    @RequestMapping("/fake")
+    public String redirectFake() {
+        return "redirect:/auth/fake/success";
     }
 
     @Autowired

@@ -5,11 +5,11 @@ import net.nucleus.rss.model.Outline;
 import net.nucleus.rss.model.User;
 import net.nucleus.rss.service.FeedEntryServiceException;
 import net.nucleus.rss.service.FeedService;
-import net.nucleus.rss.service.UserService;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,14 +33,14 @@ public class FeedController {
     private static final Logger logger = LoggerFactory.getLogger(FeedController.class);
 
     private FeedService feedService;
-    private UserService userService;
     private Mapper mapper;
 
     @RequestMapping("/{feedId}")
-    public ModelAndView feed(@PathVariable("feedId") int feedId) throws FeedEntryServiceException {
+    public ModelAndView feed(@PathVariable("feedId") int feedId, Authentication authentication) throws FeedEntryServiceException {
         logger.debug("[index] - begin - feedId: {}", feedId);
 
-        Outline feed = feedService.findFeed(getLoggedInUser(), feedId);
+        User user = (User) authentication.getPrincipal();
+        Outline feed = feedService.findFeed(user, feedId);
         feedService.updateFeed(feed);
 
         long feedEntriesCount = feedService.feedEntriesCount(feed);
@@ -57,18 +57,22 @@ public class FeedController {
     @RequestMapping("/{feedId}/entries")
     @ResponseBody
     public List<FeedEntry> feedEntries(@PathVariable("feedId") int feedId,
-                                       @RequestParam(value = "page", defaultValue = "0") int page) throws FeedEntryServiceException {
+                                       @RequestParam(value = "page", defaultValue = "0") int page,
+                                       Authentication authentication) throws FeedEntryServiceException {
         logger.debug("[feedEntries] - begin - feedId: {}", feedId);
-        Outline feed = feedService.findFeed(getLoggedInUser(), feedId);
+
+        User user = (User) authentication.getPrincipal();
+        Outline feed = feedService.findFeed(user, feedId);
         return feedService.findEntries(feed, ITEMS_PER_PAGE * page, ITEMS_PER_PAGE);
     }
 
     @RequestMapping("/{feedId}/refresh")
     @ResponseBody
-    public FeedRefreshResult feedRefresh(@PathVariable("feedId") int feedId) throws FeedEntryServiceException {
+    public FeedRefreshResult feedRefresh(@PathVariable("feedId") int feedId, Authentication authentication) throws FeedEntryServiceException {
         logger.debug("[feedRefresh] - begin - feedId: {}", feedId);
 
-        Outline feed = feedService.findFeed(getLoggedInUser(), feedId);
+        User user = (User) authentication.getPrincipal();
+        Outline feed = feedService.findFeed(user, feedId);
         Set<FeedEntry> newFeedEntries = feedService.updateFeed(feed);
         long feedEntriesCount = feedService.feedEntriesCount(feed);
 
@@ -77,18 +81,22 @@ public class FeedController {
 
     @RequestMapping("/mark-as-read/{entryId}")
     @ResponseBody
-    public void markEntryAsRead(@PathVariable("entryId") int entryId) {
+    public void markEntryAsRead(@PathVariable("entryId") int entryId, Authentication authentication) {
         logger.debug("[markEntryAsRead] - begin - entryId: {}", entryId);
-        feedService.markEntryAsRead(getLoggedInUser(), entryId);
+
+        User user = (User) authentication.getPrincipal();
+        feedService.markEntryAsRead(user, entryId);
+
         logger.debug("[markEntryAsRead] - end");
     }
 
     @RequestMapping("/outline")
     @ResponseBody
-    public OutlineResult outline() {
+    public OutlineResult outline(Authentication authentication) {
         logger.debug("[outline] - begin");
 
-        Outline rootOutline = feedService.findRootOutline(getLoggedInUser());
+        User user = (User) authentication.getPrincipal();
+        Outline rootOutline = feedService.findRootOutline(user);
         OutlineResult outlineResult = mapper.map(rootOutline, OutlineResult.class);
 
         return outlineResult;
@@ -100,16 +108,7 @@ public class FeedController {
     }
 
     @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    @Autowired
     public void setMapper(Mapper mapper) {
         this.mapper = mapper;
-    }
-
-    private User getLoggedInUser() {
-        return userService.login("test");
     }
 }

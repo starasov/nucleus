@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * User: starasov
@@ -22,6 +23,22 @@ public class UserService {
         return (User) entityManager.createQuery("select u from User u where u.username = :username")
                 .setParameter("username", username)
                 .getSingleResult();
+    }
+
+
+    @NotNull
+    @Transactional(readOnly = false)
+    public User registerNewUserIfRequired(@NotNull User user) {
+        List<User> users = (List<User>) entityManager.createQuery("select u from User u where u.username = :username")
+                .setParameter("username", user.getUsername())
+                .getResultList();
+
+        if (users.isEmpty()) {
+            entityManager.persist(user);
+            return user;
+        } else {
+            return users.get(0);
+        }
     }
 
     @PersistenceContext
