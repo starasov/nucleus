@@ -35,14 +35,15 @@ public class FixturesImportService implements ApplicationListener<ContextRefresh
     public void importTestData() throws OpmlImporterException, IOException {
         logger.debug("[importTestData] - begin");
 
-        String username = "Sergey Tarasov";
-        List users = entityManager.createQuery("select u from User u where u.username = :username")
-                .setParameter("username", username).getResultList();
+        String email = "tarasov.inf@gmail.com";
+        List users = entityManager.createQuery("select u from User u where u.email = :email")
+                .setParameter("email", email).getResultList();
 
         User user;
         if (users.isEmpty()) {
             user = new User();
-            user.setUsername(username);
+            user.setUsername("Sergey Tarasov");
+            user.setEmail(email);
             entityManager.persist(user);
         } else {
             user = (User) users.get(0);

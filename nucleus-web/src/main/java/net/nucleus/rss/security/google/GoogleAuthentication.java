@@ -29,7 +29,7 @@ public class GoogleAuthentication implements Authentication {
 
     @Override
     public Object getCredentials() {
-        return user.getGoogleId();
+        return user.getEmail();
     }
 
     @Override
@@ -48,7 +48,7 @@ public class GoogleAuthentication implements Authentication {
     }
 
     @Override
-    public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
+    public void setAuthenticated(boolean isAuthenticated) {
     }
 
     @Override

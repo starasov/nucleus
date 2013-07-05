@@ -92,14 +92,13 @@
         <!--<sec:intercept-url pattern="/auth/login" filters="none"/>-->
         <sec:intercept-url pattern="/**" access="ROLE_ANONYMOUS, ROLE_USER"/>
         <sec:anonymous username="guest" granted-authority="ROLE_ANONYMOUS"/>
-        <!--<sec:custom-filter before="FORM_LOGIN_FILTER" ref="googleAuthenticationFilter"/>-->
-        <sec:custom-filter before="FORM_LOGIN_FILTER" ref="simpleAuthenticationFilter"/>
+        <sec:custom-filter before="FORM_LOGIN_FILTER" ref="googleAuthenticationFilter"/>
+        <!--<sec:custom-filter before="FORM_LOGIN_FILTER" ref="simpleAuthenticationFilter"/>-->
 
-        <!--login-page="/auth/google"-->
         <sec:form-login
-                login-processing-url="/auth/login.proc"
-                login-page="/auth/fake"
-                default-target-url="/"
+                login-processing-url="/auth/login-processing"
+                login-page="/auth/login"
+                default-target-url="/feed"
                 authentication-failure-url="/auth/login"/>
     </sec:http>
 

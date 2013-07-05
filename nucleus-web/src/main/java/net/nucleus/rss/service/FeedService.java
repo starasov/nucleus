@@ -11,7 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,6 +33,7 @@ public class FeedService {
 
     private EntityManager entityManager;
     private FeedFetcher feedFetcher;
+    private PlatformTransactionManager transactionManager;
 
     @Transactional(readOnly = true)
     public Outline findRootOutline(User user) {
@@ -67,29 +72,13 @@ public class FeedService {
     }
 
     /**
-     * TODO: split fetching and persistence into separate steps to not consume a transaction.
-     *
      * @param outline
      * @throws FeedEntryServiceException
      */
-    @Transactional(readOnly = false)
     public Set<FeedEntry> updateFeed(Outline outline) throws FeedEntryServiceException {
-        try {
-            Set<FeedEntry> feedEntries = feedFetcher.fetch(outline);
-
-            List<FeedEntry> latestFeedEntry =
-                    (List<FeedEntry>) entityManager.createQuery("select e from FeedEntry e where e.feed = :outline order by e.entryTimestamp")
-                            .setParameter("outline", outline)
-                            .setMaxResults(feedEntries.size())
-                            .getResultList();
-
-
-            persistNewFeedEntries(feedEntries, latestFeedEntry);
-
-            return feedEntries;
-        } catch (FeedFetcherException e) {
-            throw new FeedEntryServiceException("Failed to import entries.", e);
-        }
+        Set<FeedEntry> feedEntries = fetchFeedEntries(outline);
+        updateFeedEntries(outline, feedEntries);
+        return feedEntries;
     }
 
     @PersistenceContext
@@ -101,6 +90,35 @@ public class FeedService {
     @Qualifier("decorator")
     public void setFeedFetcher(FeedFetcher feedFetcher) {
         this.feedFetcher = feedFetcher;
+    }
+
+    @Autowired
+    public void setFeedFetcher(PlatformTransactionManager transactionManager) {
+        this.transactionManager = transactionManager;
+    }
+
+    private Set<FeedEntry> fetchFeedEntries(Outline outline) throws FeedEntryServiceException {
+        try {
+            return feedFetcher.fetch(outline);
+        } catch (FeedFetcherException e) {
+            throw new FeedEntryServiceException("Failed to import entries.", e);
+        }
+    }
+
+    private void updateFeedEntries(final Outline outline, final Set<FeedEntry> feedEntries) {
+        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+        transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+            @Override
+            protected void doInTransactionWithoutResult(TransactionStatus status) {
+                List<FeedEntry> latestFeedEntry =
+                        (List<FeedEntry>) entityManager.createQuery("select e from FeedEntry e where e.feed = :outline order by e.entryTimestamp")
+                                .setParameter("outline", outline)
+                                .setMaxResults(feedEntries.size())
+                                .getResultList();
+
+                persistNewFeedEntries(feedEntries, latestFeedEntry);
+            }
+        });
     }
 
     private void persistNewFeedEntries(@NotNull Set<FeedEntry> newFeedEntries,

@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(
         name = "users",
-        uniqueConstraints = @UniqueConstraint(columnNames = "username")
+        uniqueConstraints = @UniqueConstraint(columnNames = "email")
 )
 public class User {
     @Id
@@ -18,7 +18,7 @@ public class User {
     private int id;
 
     private String username;
-    private String googleId;
+    private String email;
 
     public int getId() {
         return id;
@@ -36,11 +36,11 @@ public class User {
         this.username = username;
     }
 
-    public String getGoogleId() {
-        return googleId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setGoogleId(String googleId) {
-        this.googleId = googleId;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

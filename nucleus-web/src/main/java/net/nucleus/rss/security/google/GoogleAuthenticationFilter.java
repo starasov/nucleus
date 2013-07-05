@@ -55,7 +55,7 @@ public class GoogleAuthenticationFilter extends AbstractAuthenticationProcessing
         User user = new User();
 
         user.setUsername(googleUserProfile.getName());
-        user.setGoogleId(googleUserProfile.getId());
+        user.setEmail(googleUserProfile.getEmail());
 
         return user;
     }

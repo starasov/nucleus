@@ -15,7 +15,7 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- Keep next 3 lines in place -->
-    <!-- It doesn't look like Spring share annotation processing between root and MVC contexts -->
+    <!-- It doesn't look like Spring shares annotation processing between root and MVC contexts -->
     <context:component-scan base-package="net.nucleus.rss"/>
     <context:annotation-config/>
     <tx:annotation-driven transaction-manager="transactionManager"/>

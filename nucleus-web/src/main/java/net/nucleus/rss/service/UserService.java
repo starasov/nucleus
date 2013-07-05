@@ -19,9 +19,9 @@ public class UserService {
     private EntityManager entityManager;
 
     @Transactional(readOnly = true)
-    public User login(@NotNull String username) {
-        return (User) entityManager.createQuery("select u from User u where u.username = :username")
-                .setParameter("username", username)
+    public User login(@NotNull String email) {
+        return (User) entityManager.createQuery("select u from User u where u.email = :email")
+                .setParameter("email", email)
                 .getSingleResult();
     }
 
@@ -29,8 +29,8 @@ public class UserService {
     @NotNull
     @Transactional(readOnly = false)
     public User registerNewUserIfRequired(@NotNull User user) {
-        List<User> users = (List<User>) entityManager.createQuery("select u from User u where u.username = :username")
-                .setParameter("username", user.getUsername())
+        List<User> users = (List<User>) entityManager.createQuery("select u from User u where u.email = :email")
+                .setParameter("email", user.getEmail())
                 .getResultList();
 
         if (users.isEmpty()) {

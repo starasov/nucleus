@@ -1,5 +1,7 @@
 package net.nucleus.rss.security.google;
 
+import com.google.common.base.Joiner;
+import com.google.common.collect.ImmutableSet;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * TODO: clarify exceptions handling and propagation
@@ -20,6 +23,11 @@ import java.util.Map;
 @Component
 public class GoogleAuthenticationService {
 
+    private final Set<String> SCOPES = ImmutableSet.of(
+            "https://www.googleapis.com/auth/userinfo.profile",
+            "https://www.googleapis.com/auth/userinfo.email"
+    );
+
     private GoogleClientConfig clientConfig;
     private RestTemplate restTemplate;
 
@@ -30,7 +38,7 @@ public class GoogleAuthenticationService {
                 .queryParam("redirect_uri", clientConfig.getRedirectUri())
                 .queryParam("approval_prompt", "force")
                 .queryParam("response_type", "code")
-                .queryParam("scope", "https://www.googleapis.com/auth/userinfo.profile")
+                .queryParam("scope", Joiner.on("+").join(SCOPES))
                 .build().toUriString();
     }
 
