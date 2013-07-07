@@ -78,11 +78,17 @@
         <property name="defaultFailureUrl" value="/auth/login"/>
     </bean>
 
+    <bean id="authenticationSuccessHandler"
+          class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+        <property name="defaultTargetUrl" value="/feed"/>
+    </bean>
+
     <bean id="googleAuthenticationFilter" class="net.nucleus.rss.security.google.GoogleAuthenticationFilter">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="userService" ref="userService"/>
         <property name="googleAuthenticationService" ref="googleAuthenticationService"/>
         <property name="authenticationFailureHandler" ref="authenticationFailureHandler"/>
+        <property name="authenticationSuccessHandler" ref="authenticationSuccessHandler"/>
     </bean>
 
     <sec:authentication-manager alias="authenticationManager">
@@ -91,16 +97,12 @@
 
     <sec:http access-denied-page="/auth/denied">
         <sec:intercept-url pattern="/feed/*" access="ROLE_USER"/>
-        <!--<sec:intercept-url pattern="/auth/login" filters="none"/>-->
         <sec:intercept-url pattern="/**" access="ROLE_ANONYMOUS, ROLE_USER"/>
         <sec:anonymous username="guest" granted-authority="ROLE_ANONYMOUS"/>
         <sec:custom-filter before="FORM_LOGIN_FILTER" ref="googleAuthenticationFilter"/>
-        <!--<sec:custom-filter before="FORM_LOGIN_FILTER" ref="simpleAuthenticationFilter"/>-->
 
-        <sec:form-login
-                login-processing-url="/auth/login-processing"
-                login-page="/auth/login"
-                default-target-url="/feed"/>
+        <sec:form-login login-page="/auth/login"/>
+        <sec:logout logout-url="/auth/logout" logout-success-url="/"/>
     </sec:http>
 
     <!-- Profiles -->
