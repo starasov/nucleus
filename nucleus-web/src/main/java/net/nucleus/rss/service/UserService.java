@@ -31,7 +31,7 @@ public class UserService {
     @NotNull
     @Transactional(readOnly = false)
     public User registerNewUserIfRequired(@NotNull User user) {
-        List<User> users = (List<User>) entityManager.createQuery("select u from User u where u.email = :email")
+        List users = entityManager.createQuery("select u from User u where u.email = :email")
                 .setParameter("email", user.getEmail())
                 .getResultList();
 
@@ -39,7 +39,7 @@ public class UserService {
             entityManager.persist(user);
             return user;
         } else {
-            return users.get(0);
+            return (User) users.get(0);
         }
     }
 
