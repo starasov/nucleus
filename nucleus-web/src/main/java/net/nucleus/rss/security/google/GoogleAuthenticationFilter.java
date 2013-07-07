@@ -4,7 +4,6 @@ import net.nucleus.rss.model.User;
 import net.nucleus.rss.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -34,7 +33,7 @@ public class GoogleAuthenticationFilter extends AbstractAuthenticationProcessing
         String error = request.getParameter("error");
 
         if (StringUtils.isBlank(code)) {
-            throw new BadCredentialsException("Google Authentication Failed");
+            throw new GoogleAuthenticationException("Google Authentication Failed: " + error);
         }
 
         GoogleUserProfile googleUserProfile = googleAuthenticationService.authenticate(code);

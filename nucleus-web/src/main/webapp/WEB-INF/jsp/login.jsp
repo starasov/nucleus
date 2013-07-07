@@ -89,6 +89,13 @@
 
     <form class="form-signin" action="${basePath}/google">
         <header>
+            <c:if test="${authenticationFailed}">
+                <div class="alert alert-error">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Oops!</strong> ${exception.message}
+                </div>
+            </c:if>
+
             <h2 class="form-signin-heading">Sign in with</h2>
         </header>
 

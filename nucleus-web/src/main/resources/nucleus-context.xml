@@ -73,14 +73,16 @@
     <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
 
     <!-- Security -->
+    <bean id="authenticationFailureHandler"
+          class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+        <property name="defaultFailureUrl" value="/auth/login"/>
+    </bean>
+
     <bean id="googleAuthenticationFilter" class="net.nucleus.rss.security.google.GoogleAuthenticationFilter">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="userService" ref="userService"/>
         <property name="googleAuthenticationService" ref="googleAuthenticationService"/>
-    </bean>
-
-    <bean id="simpleAuthenticationFilter" class="net.nucleus.rss.security.test.SimpleAuthenticationFilter">
-        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="authenticationFailureHandler" ref="authenticationFailureHandler"/>
     </bean>
 
     <sec:authentication-manager alias="authenticationManager">
@@ -98,11 +100,10 @@
         <sec:form-login
                 login-processing-url="/auth/login-processing"
                 login-page="/auth/login"
-                default-target-url="/feed"
-                authentication-failure-url="/auth/login"/>
+                default-target-url="/feed"/>
     </sec:http>
 
-    <!--Profiles -->
+    <!-- Profiles -->
     <!-- Development environment profile -->
     <beans profile="dev">
         <bean class="net.nucleus.rss.security.google.GoogleClientConfig">

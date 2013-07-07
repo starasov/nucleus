@@ -2,8 +2,13 @@ package net.nucleus.rss.controller;
 
 import net.nucleus.rss.security.google.GoogleAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Handles authentication workflows.
@@ -24,8 +29,14 @@ public class AuthenticationController {
     private GoogleAuthenticationService googleAuthenticationService;
 
     @RequestMapping("/login")
-    public String login() {
-        return "login";
+    public ModelAndView login(HttpServletRequest request) {
+        Exception exception = readAuthenticationException(request);
+
+        ModelAndView modelAndView = new ModelAndView("login");
+        modelAndView.addObject("exception", exception);
+        modelAndView.addObject("authenticationFailed", exception != null);
+
+        return modelAndView;
     }
 
     @RequestMapping("/google")
@@ -42,5 +53,12 @@ public class AuthenticationController {
     @Autowired
     public void setGoogleAuthenticationService(GoogleAuthenticationService googleAuthenticationService) {
         this.googleAuthenticationService = googleAuthenticationService;
+    }
+
+    private Exception readAuthenticationException(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Exception exception = (Exception) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+        session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+        return exception;
     }
 }
