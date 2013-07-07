@@ -52,7 +52,8 @@ public class FeedService {
     @Transactional(readOnly = true)
     public long feedEntriesCount(Outline outline) {
         return (Long) entityManager.createQuery("select count(e.id) from FeedEntry e where e.feed = :outline")
-                .setParameter("outline", outline).getSingleResult();
+                .setParameter("outline", outline)
+                .getSingleResult();
     }
 
     @Transactional(readOnly = true)
@@ -73,9 +74,9 @@ public class FeedService {
 
     /**
      * @param outline
-     * @throws FeedEntryServiceException
+     * @throws FeedServiceException
      */
-    public Set<FeedEntry> updateFeed(Outline outline) throws FeedEntryServiceException {
+    public Set<FeedEntry> updateFeed(Outline outline) throws FeedServiceException {
         Set<FeedEntry> feedEntries = fetchFeedEntries(outline);
         updateFeedEntries(outline, feedEntries);
         return feedEntries;
@@ -97,11 +98,11 @@ public class FeedService {
         this.transactionManager = transactionManager;
     }
 
-    private Set<FeedEntry> fetchFeedEntries(Outline outline) throws FeedEntryServiceException {
+    private Set<FeedEntry> fetchFeedEntries(Outline outline) throws FeedServiceException {
         try {
             return feedFetcher.fetch(outline);
         } catch (FeedFetcherException e) {
-            throw new FeedEntryServiceException("Failed to import entries.", e);
+            throw new FeedServiceException("Failed to import entries.", e);
         }
     }
 

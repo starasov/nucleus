@@ -24,47 +24,7 @@
     <link href="${resources}/css/bootstrap.css" rel="stylesheet">
     <link href="${resources}/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="${resources}/css/font-awesome.css" rel="stylesheet">
-    <link href="${resources}/css/nucleus.css" rel="stylesheet">
-
-    <style type="text/css">
-        body {
-            padding-top: 40px;
-            padding-bottom: 40px;
-            background-color: #f5f5f5;
-        }
-
-        .form-signin {
-            /*max-width: 380px;*/
-            width: 50%;
-            padding: 19px 29px 29px;
-            margin: 0 auto 20px;
-            background-color: #fff;
-            border: 1px solid #e5e5e5;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-            -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
-            -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
-        }
-
-        .form-signin .form-signin-heading {
-            margin-bottom: 10px;
-        }
-
-        .form-signin header {
-            margin-bottom: 20px;
-            border-bottom: 1px solid #cccccc;
-        }
-
-        .form-signin input[type="text"],
-        .form-signin input[type="password"] {
-            font-size: 16px;
-            height: auto;
-            margin-bottom: 15px;
-            padding: 7px 9px;
-        }
-    </style>
+    <link href="${resources}/css/login.css" rel="stylesheet">
 
     <!-- Fav and touch icons -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144"
@@ -81,12 +41,9 @@
 
     <link rel="shortcut icon" href="http://twitter.github.io/bootstrap/assets/ico/favicon.png">
 </head>
-
 <body>
 
-
 <div class="container">
-
     <form class="form-signin" action="${basePath}/google">
         <header>
             <c:if test="${authenticationFailed}">
@@ -99,15 +56,20 @@
             <h2 class="form-signin-heading">Sign in with</h2>
         </header>
 
-        <div style="width: 100%; text-align: center">
+        <div class="auth-provider-container">
             <button class="btn btn-large" type="submit">
-                <img src="${resources}/img/google.svg" style="width: 24px; height: 24px"/> Google
+                <img src="${resources}/img/google.svg" class="auth-provider-icon"/> Google
             </button>
-            <button class="btn btn-large disabled"><i class="icon-user icon-black"></i> Facebook</button>
-            <button class="btn btn-large disabled"><i class="icon-user icon-black"></i> Twitter</button>
+
+            <button class="btn btn-large disabled">
+                <img src="${resources}/img/facebook.svg" class="auth-provider-icon"/> Facebook
+            </button>
+
+            <button class="btn btn-large disabled">
+                <img src="${resources}/img/twitter.svg" class="auth-provider-icon"/> Twitter
+            </button>
         </div>
     </form>
-
 </div>
 <!-- /container -->
 

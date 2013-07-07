@@ -3,8 +3,8 @@ package net.nucleus.rss.controller;
 import net.nucleus.rss.model.FeedEntry;
 import net.nucleus.rss.model.Outline;
 import net.nucleus.rss.model.User;
-import net.nucleus.rss.service.FeedEntryServiceException;
 import net.nucleus.rss.service.FeedService;
+import net.nucleus.rss.service.FeedServiceException;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +36,7 @@ public class FeedController {
     private Mapper mapper;
 
     @RequestMapping("/{feedId}")
-    public ModelAndView feed(@PathVariable("feedId") int feedId, Authentication authentication) throws FeedEntryServiceException {
+    public ModelAndView feed(@PathVariable("feedId") int feedId, Authentication authentication) throws FeedServiceException {
         logger.debug("[index] - begin - feedId: {}", feedId);
 
         User user = (User) authentication.getPrincipal();
@@ -58,7 +58,7 @@ public class FeedController {
     @ResponseBody
     public List<FeedEntry> feedEntries(@PathVariable("feedId") int feedId,
                                        @RequestParam(value = "page", defaultValue = "0") int page,
-                                       Authentication authentication) throws FeedEntryServiceException {
+                                       Authentication authentication) throws FeedServiceException {
         logger.debug("[feedEntries] - begin - feedId: {}", feedId);
 
         User user = (User) authentication.getPrincipal();
@@ -68,7 +68,7 @@ public class FeedController {
 
     @RequestMapping("/{feedId}/refresh")
     @ResponseBody
-    public FeedRefreshResult feedRefresh(@PathVariable("feedId") int feedId, Authentication authentication) throws FeedEntryServiceException {
+    public FeedRefreshResult feedRefresh(@PathVariable("feedId") int feedId, Authentication authentication) throws FeedServiceException {
         logger.debug("[feedRefresh] - begin - feedId: {}", feedId);
 
         User user = (User) authentication.getPrincipal();

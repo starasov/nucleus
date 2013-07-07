@@ -4,7 +4,6 @@ import net.nucleus.rss.model.FeedEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,16 +21,15 @@ public class WelcomeController {
     private static final Logger logger = LoggerFactory.getLogger(WelcomeController.class);
 
     @RequestMapping("/")
-    @Transactional
     public ModelAndView index() {
-        logger.debug("[{}][index] - begin", this.getClass().getSimpleName());
+        logger.debug("[index] - begin");
 
         List<FeedEntry> list = new ArrayList<FeedEntry>();
 
         ModelAndView modelAndView = new ModelAndView("feed");
         modelAndView.addObject("entries", list);
 
-        logger.debug("[{}][index] - end", this.getClass().getSimpleName());
+        logger.debug("[index] - end");
         return modelAndView;
     }
 }

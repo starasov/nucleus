@@ -1,5 +1,6 @@
 package net.nucleus.rss.service;
 
+import com.google.common.base.Optional;
 import net.nucleus.rss.model.User;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,13 @@ public class UserService {
     private EntityManager entityManager;
 
     @Transactional(readOnly = true)
-    public User login(@NotNull String email) {
-        return (User) entityManager.createQuery("select u from User u where u.email = :email")
+    public Optional<User> login(@NotNull String email) {
+        User user = (User) entityManager.createQuery("select u from User u where u.email = :email")
                 .setParameter("email", email)
                 .getSingleResult();
-    }
 
+        return Optional.fromNullable(user);
+    }
 
     @NotNull
     @Transactional(readOnly = false)

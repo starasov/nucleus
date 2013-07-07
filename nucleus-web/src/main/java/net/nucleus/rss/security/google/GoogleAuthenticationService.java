@@ -80,6 +80,7 @@ public class GoogleAuthenticationService {
         GoogleUserProfile googleUserProfile = new GoogleUserProfile();
         googleUserProfile.setId((String) userInfoResponse.get("id"));
         googleUserProfile.setName((String) userInfoResponse.get("name"));
+        googleUserProfile.setEmail((String) userInfoResponse.get("email"));
 
         return googleUserProfile;
     }
