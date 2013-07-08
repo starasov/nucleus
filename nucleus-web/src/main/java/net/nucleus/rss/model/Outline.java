@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -62,6 +63,10 @@ public class Outline {
         this.user = user;
     }
 
+    public boolean isEmpty() {
+        return children.isEmpty();
+    }
+
     public List<Outline> getChildren() {
         return children;
     }
@@ -72,6 +77,10 @@ public class Outline {
 
     public void addChild(@NotNull Outline outline) {
         this.children.add(outline);
+    }
+
+    public void addAllChildren(@NotNull Collection<Outline> outline) {
+        this.children.addAll(outline);
     }
 
     public OutlineType getType() {

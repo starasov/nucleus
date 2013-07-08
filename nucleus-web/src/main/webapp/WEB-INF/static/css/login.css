@@ -22,10 +22,10 @@ body {
     margin-bottom: 10px;
 }
 
-.form-signin header {
-    margin-bottom: 20px;
-    border-bottom: 1px solid #cccccc;
-}
+/*.form-signin header {*/
+/*margin-bottom: 20px;*/
+/*border-bottom: 1px solid #cccccc;*/
+/*}*/
 
 .form-signin input[type="text"],
 .form-signin input[type="password"] {

@@ -80,7 +80,7 @@
 
     <bean id="authenticationSuccessHandler"
           class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
-        <property name="defaultTargetUrl" value="/feed"/>
+        <property name="defaultTargetUrl" value="/feed/"/>
     </bean>
 
     <bean id="googleAuthenticationFilter" class="net.nucleus.rss.security.google.GoogleAuthenticationFilter">
@@ -97,12 +97,13 @@
 
     <sec:http access-denied-page="/auth/denied">
         <sec:intercept-url pattern="/feed/*" access="ROLE_USER"/>
+        <sec:intercept-url pattern="/import/*" access="ROLE_USER"/>
         <sec:intercept-url pattern="/**" access="ROLE_ANONYMOUS, ROLE_USER"/>
         <sec:anonymous username="guest" granted-authority="ROLE_ANONYMOUS"/>
         <sec:custom-filter before="FORM_LOGIN_FILTER" ref="googleAuthenticationFilter"/>
 
-        <sec:form-login login-page="/auth/login"/>
-        <sec:logout logout-url="/auth/logout" logout-success-url="/"/>
+        <sec:form-login login-page="/auth/login/"/>
+        <sec:logout logout-url="/auth/logout/" logout-success-url="/"/>
     </sec:http>
 
     <!-- Profiles -->

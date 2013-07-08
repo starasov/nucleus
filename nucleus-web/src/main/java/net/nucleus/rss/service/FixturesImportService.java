@@ -1,6 +1,7 @@
 package net.nucleus.rss.service;
 
 import net.nucleus.rss.model.Outline;
+import net.nucleus.rss.model.OutlineType;
 import net.nucleus.rss.model.User;
 import net.nucleus.rss.opml.OpmlImporter;
 import net.nucleus.rss.opml.OpmlImporterException;
@@ -56,8 +57,12 @@ public class FixturesImportService implements ApplicationListener<ContextRefresh
             ResourceLoader resourceLoader = new DefaultResourceLoader();
             Resource resource = resourceLoader.getResource("classpath:/subscriptions.xml");
 
-            Outline outline = OpmlImporter.fromStream(resource.getInputStream(), user);
-            entityManager.persist(outline);
+            Outline root = new Outline();
+            root.setUser(user);
+            root.setType(OutlineType.FOLDER);
+
+            OpmlImporter.fromStream(resource.getInputStream(), root);
+            entityManager.persist(root);
         }
 
         logger.debug("[importTestData] - end");

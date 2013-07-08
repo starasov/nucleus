@@ -8,6 +8,7 @@
 * [UI] Move styles under css
 * [UI] Login page
 * [UI] Import OMPL page
+* [UI] Cleanup CSSs for login, nucleus and import pages
 
 * [Config] Complete JPA configuration for Spring
 * [Config] HTTPS support
