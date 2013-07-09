@@ -22,6 +22,7 @@ public class GoogleAuthenticationFilter extends AbstractAuthenticationProcessing
 
     private UserService userService;
     private GoogleAuthenticationService googleAuthenticationService;
+    private boolean testModeFlag;
 
     public GoogleAuthenticationFilter() {
         super("/auth/google_callback");
@@ -31,6 +32,11 @@ public class GoogleAuthenticationFilter extends AbstractAuthenticationProcessing
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
         String code = request.getParameter("code");
         String error = request.getParameter("error");
+
+        String email = request.getParameter("email");
+        if (testModeFlag && StringUtils.isNotBlank(email)) {
+            return new GoogleAuthentication(userService.login(email).get());
+        }
 
         if (StringUtils.isBlank(code)) {
             throw new GoogleAuthenticationException("Google Authentication Failed: " + error);
@@ -48,6 +54,10 @@ public class GoogleAuthenticationFilter extends AbstractAuthenticationProcessing
 
     public void setGoogleAuthenticationService(@NotNull GoogleAuthenticationService googleAuthenticationService) {
         this.googleAuthenticationService = googleAuthenticationService;
+    }
+
+    public void setTestModeFlag(boolean testModeFlag) {
+        this.testModeFlag = testModeFlag;
     }
 
     private User fromGoogleProfile(GoogleUserProfile googleUserProfile) {

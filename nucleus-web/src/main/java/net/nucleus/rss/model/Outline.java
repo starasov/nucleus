@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,7 +37,8 @@ public class Outline {
     private String xmlUrl;
     private String htmlUrl;
 
-    private int unreadCount;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdateTime;
 
     public int getId() {
         return id;
@@ -77,10 +78,6 @@ public class Outline {
 
     public void addChild(@NotNull Outline outline) {
         this.children.add(outline);
-    }
-
-    public void addAllChildren(@NotNull Collection<Outline> outline) {
-        this.children.addAll(outline);
     }
 
     public OutlineType getType() {
@@ -123,12 +120,13 @@ public class Outline {
         this.htmlUrl = htmlUrl;
     }
 
-    public int getUnreadCount() {
-        return unreadCount;
+    public Date getLastUpdateTime() {
+        return lastUpdateTime;
     }
 
-    public void setUnreadCount(int unreadCount) {
-        this.unreadCount = unreadCount;
+    @PrePersist
+    public void updateLastUpdateTime() {
+        this.lastUpdateTime = new Date(0);
     }
 
     @Override

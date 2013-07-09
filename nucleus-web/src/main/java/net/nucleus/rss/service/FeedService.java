@@ -1,9 +1,11 @@
 package net.nucleus.rss.service;
 
+import com.google.common.base.Optional;
 import net.nucleus.rss.fetch.FeedFetcher;
 import net.nucleus.rss.fetch.FeedFetcherException;
 import net.nucleus.rss.model.FeedEntry;
 import net.nucleus.rss.model.Outline;
+import net.nucleus.rss.model.OutlineType;
 import net.nucleus.rss.model.User;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -19,6 +21,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -35,9 +38,19 @@ public class FeedService {
     private FeedFetcher feedFetcher;
     private PlatformTransactionManager transactionManager;
 
+
     @Transactional(readOnly = true)
-    public Outline findRootOutline(User user) {
-        List resultList = entityManager.createQuery("select f from Outline f left join fetch f.children where f.user = :user order by f.parent.id asc")
+    public Optional<Outline> findRootOutlineLazy(User user) {
+        List resultList = entityManager.createQuery("select o from Outline o left join fetch o.children where o.user = :user and o.parent is null")
+                .setParameter("user", user)
+                .getResultList();
+
+        return resultList.isEmpty() ? Optional.<Outline>absent() : Optional.of((Outline) resultList.get(0));
+    }
+
+    @Transactional(readOnly = true)
+    public Outline findRootOutlineEager(User user) {
+        List resultList = entityManager.createQuery("select o from Outline o left join fetch o.children where o.user = :user order by o.parent.id asc")
                 .setParameter("user", user)
                 .getResultList();
 
@@ -57,6 +70,16 @@ public class FeedService {
     }
 
     @Transactional(readOnly = true)
+    public Optional<Outline> findMostOutdatedFeed() {
+        List<Outline> outlines = entityManager.createQuery("select o from Outline o where o.type = :outlineType order by o.lastUpdateTime", Outline.class)
+                .setParameter("outlineType", OutlineType.FEED)
+                .setMaxResults(1)
+                .getResultList();
+
+        return outlines.isEmpty() ? Optional.<Outline>absent() : Optional.of(outlines.get(0));
+    }
+
+    @Transactional(readOnly = true)
     public List<FeedEntry> findEntries(Outline outline, int offset, int pageSize) {
         return (List<FeedEntry>) entityManager.createQuery("select e from FeedEntry e where e.feed = :outline order by e.entryTimestamp")
                 .setParameter("outline", outline)
@@ -65,7 +88,7 @@ public class FeedService {
                 .getResultList();
     }
 
-    @Transactional
+    @Transactional(readOnly = false)
     public void markEntryAsRead(User loggedInUser, int entryId) {
         entityManager.createQuery("update FeedEntry e set e.readFlag = true where e.id = :id")
                 .setParameter("id", entryId)
@@ -111,13 +134,18 @@ public class FeedService {
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus status) {
-                List<FeedEntry> latestFeedEntry =
+                List<FeedEntry> latestFeedEntries =
                         (List<FeedEntry>) entityManager.createQuery("select e from FeedEntry e where e.feed = :outline order by e.entryTimestamp")
                                 .setParameter("outline", outline)
                                 .setMaxResults(feedEntries.size())
                                 .getResultList();
 
-                persistNewFeedEntries(feedEntries, latestFeedEntry);
+                persistNewFeedEntries(feedEntries, latestFeedEntries);
+
+                entityManager.createQuery("update Outline o set o.lastUpdateTime = :lastUpdateTime where o.id = :id")
+                        .setParameter("id", outline.getId())
+                        .setParameter("lastUpdateTime", new Date())
+                        .executeUpdate();
             }
         });
     }

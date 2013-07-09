@@ -6,6 +6,7 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:cache="http://www.springframework.org/schema/cache"
        xmlns:sec="http://www.springframework.org/schema/security"
+       xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
@@ -13,7 +14,11 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
         http://www.springframework.org/schema/cache
-        http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+        http://www.springframework.org/schema/cache/spring-cache.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task.xsd">
 
     <!-- Core -->
     <!-- Scans and configures all annotation-based components -->
@@ -89,6 +94,7 @@
         <property name="googleAuthenticationService" ref="googleAuthenticationService"/>
         <property name="authenticationFailureHandler" ref="authenticationFailureHandler"/>
         <property name="authenticationSuccessHandler" ref="authenticationSuccessHandler"/>
+        <property name="testModeFlag" value="true"/>
     </bean>
 
     <sec:authentication-manager alias="authenticationManager">
@@ -105,6 +111,11 @@
         <sec:form-login login-page="/auth/login/"/>
         <sec:logout logout-url="/auth/logout/" logout-success-url="/"/>
     </sec:http>
+
+    <!-- Scheduling -->
+    <task:annotation-driven executor="executor" scheduler="scheduler"/>
+    <task:executor id="executor" pool-size="5"/>
+    <task:scheduler id="scheduler" pool-size="10"/>
 
     <!-- Profiles -->
     <!-- Development environment profile -->

@@ -45,11 +45,6 @@ public class AuthenticationController {
         return "redirect:" + authorizationUrl;
     }
 
-    @RequestMapping("/fake")
-    public String redirectFake() {
-        return "redirect:/auth/fake/success";
-    }
-
     @Autowired
     public void setGoogleAuthenticationService(GoogleAuthenticationService googleAuthenticationService) {
         this.googleAuthenticationService = googleAuthenticationService;

@@ -66,11 +66,12 @@
                             <i class="icon-ok"></i> Mark As Read <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action1</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
+                            <li><a href="#">Older Than 1 Day</a></li>
+                            <li><a href="#">Older Than 1 Week</a></li>
+                            <li><a href="#">Older Than 2 Weeks</a></li>
+                            <li><a href="#">Older Than 1 Month</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">Logout</a></li>
+                            <li><a href="#">All</a></li>
                         </ul>
                     </li>
 
@@ -79,11 +80,9 @@
                             <i class="icon-cog"></i> Settings <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
+                            <li><a href="/import/">OMPL Import</a></li>
                             <li class="divider"></li>
-                            <li><a href="/auth/logout">Logout</a></li>
+                            <li><a href="/auth/logout/">Logout</a></li>
                         </ul>
                     </li>
                 </ul>

@@ -1,5 +1,6 @@
 package net.nucleus.rss.controller;
 
+import com.google.common.base.Optional;
 import net.nucleus.rss.model.FeedEntry;
 import net.nucleus.rss.model.Outline;
 import net.nucleus.rss.model.User;
@@ -34,6 +35,17 @@ public class FeedController {
 
     private FeedService feedService;
     private Mapper mapper;
+
+    @RequestMapping("/")
+    public String index(Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        Optional<Outline> rootOutline = feedService.findRootOutlineLazy(user);
+        if (rootOutline.isPresent()) {
+            return "redirect:/feed/" + rootOutline.get().getId();
+        } else {
+            return "redirect:/import/";
+        }
+    }
 
     @RequestMapping("/{feedId}")
     public ModelAndView feed(@PathVariable("feedId") int feedId, Authentication authentication) throws FeedServiceException {
@@ -96,7 +108,7 @@ public class FeedController {
         logger.debug("[outline] - begin");
 
         User user = (User) authentication.getPrincipal();
-        Outline rootOutline = feedService.findRootOutline(user);
+        Outline rootOutline = feedService.findRootOutlineEager(user);
         OutlineResult outlineResult = mapper.map(rootOutline, OutlineResult.class);
 
         return outlineResult;

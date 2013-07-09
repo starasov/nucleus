@@ -10,7 +10,6 @@ import net.nucleus.rss.model.Outline;
 import net.nucleus.rss.sanitize.HtmlSanitizer;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
 
 import java.io.IOException;
 import java.util.LinkedHashSet;
@@ -28,8 +27,6 @@ public abstract class BaseFeedFetcher implements FeedFetcher {
     @NotNull
     @Override
     public Set<FeedEntry> fetch(@NotNull Outline feed) throws FeedFetcherException {
-        Assert.notNull(feed, "feed parameter can't be null.");
-
         try {
             Set<FeedEntry> feedEntries = new LinkedHashSet<FeedEntry>();
             fetchInternal(feed, feedEntries);
@@ -74,7 +71,6 @@ public abstract class BaseFeedFetcher implements FeedFetcher {
         String descriptionSanitized = htmlSanitizer.sanitize(descriptionNormalized);
 
         feedEntry.setFullDescription(descriptionSanitized);
-
         feedEntry.setPublicationDate(syndEntry.getPublishedDate());
 
         return feedEntry;

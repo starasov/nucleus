@@ -22,3 +22,5 @@
 * [Backend] Spring security (if needed)
 * [Backend] Caching
 * [Backend] Review HTML sanitizer configuration
+
+* [Test] http://localhost:8080/auth/google_callback?email=tarasov.inf@gmail.com
