@@ -111,7 +111,7 @@
         <div class="span2" style="width: 15%; margin: 0; padding: 0;">
             <div id="outline" class="well sidebar-nav scrollable outline-tree">
                 <ul class="nav nav-list" ng-controller="OutlineController">
-                    <li ng-repeat="c in outline.children" ng-include="outlineTemplate"></li>
+                    <li ng-repeat="c in outline.children | orderBy:'ordinal'" ng-include="outlineTemplate"></li>
                 </ul>
             </div>
         </div>

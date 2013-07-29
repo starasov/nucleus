@@ -56,6 +56,7 @@ public class OpmlImporter {
             return;
         }
 
+        int ordinal = 0;
         for (com.sun.syndication.feed.opml.Outline outline : outlines) {
             Outline child = new Outline();
 
@@ -66,12 +67,15 @@ public class OpmlImporter {
             child.setTitle(outline.getTitle());
             child.setDescription(outline.getText());
             child.setType(parseOutlineType(outline.getType()));
+            child.setOrdinal(ordinal);
 
             parent.addChild(child);
 
             if (child.getType() == OutlineType.FOLDER) {
                 transform(child, (List<com.sun.syndication.feed.opml.Outline>) outline.getChildren());
             }
+
+            ordinal++;
         }
     }
 

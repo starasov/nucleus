@@ -1,5 +1,6 @@
 package net.nucleus.rss.fetch;
 
+import com.sun.syndication.feed.synd.SyndContent;
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.FeedException;
@@ -66,11 +67,15 @@ public abstract class BaseFeedFetcher implements FeedFetcher {
         feedEntry.setExternalUrl(syndEntry.getUri());
         feedEntry.setTitle(htmlSanitizer.sanitizeStrict(syndEntry.getTitle()));
 
-        String descriptionRaw = syndEntry.getDescription().getValue();
-        String descriptionNormalized = descriptionRaw.length() > 8000 ? descriptionRaw.substring(0, 8000) : descriptionRaw;
-        String descriptionSanitized = htmlSanitizer.sanitize(descriptionNormalized);
+        SyndContent description = syndEntry.getDescription();
+        if (description != null) {
+            String descriptionRaw = description.getValue();
+            String descriptionNormalized = descriptionRaw.length() > 15000 ? descriptionRaw.substring(0, 15000) : descriptionRaw;
+            String descriptionSanitized = htmlSanitizer.sanitize(descriptionNormalized);
 
-        feedEntry.setFullDescription(descriptionSanitized);
+            feedEntry.setFullDescription(descriptionSanitized);
+        }
+
         feedEntry.setPublicationDate(syndEntry.getPublishedDate());
 
         return feedEntry;

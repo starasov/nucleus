@@ -23,7 +23,7 @@ public class FeedEntry {
     @Column(length = 1024)
     private String title;
 
-    @Column(length = 8192)
+    @Column(length = 20000)
     private String fullDescription;
 
     @Column(length = 1024)

@@ -31,6 +31,10 @@ public class FeedUpdateService {
 
     }
 
+    @Scheduled(fixedRate = 60000 * 60 * 24)
+    public void scheduleCleanups() throws FeedServiceException {
+    }
+
     private boolean isFeedUpdateRequired(Date date, Date lastUpdateTime) {
         return lastUpdateTime == null || (date.getTime() - lastUpdateTime.getTime()) > 1000 * 60 * 60 * 15;
     }

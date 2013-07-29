@@ -32,6 +32,8 @@ public class Outline {
     @Column(name = "outline_type")
     private OutlineType type;
 
+    private int ordinal;
+
     private String title;
     private String description;
     private String xmlUrl;
@@ -39,6 +41,8 @@ public class Outline {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdateTime;
+
+    private int failedUpdates;
 
     public int getId() {
         return id;
@@ -88,6 +92,14 @@ public class Outline {
         this.type = type;
     }
 
+    public int getOrdinal() {
+        return ordinal;
+    }
+
+    public void setOrdinal(int ordinal) {
+        this.ordinal = ordinal;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -127,6 +139,10 @@ public class Outline {
     @PrePersist
     public void updateLastUpdateTime() {
         this.lastUpdateTime = new Date(0);
+    }
+
+    public int getFailedUpdates() {
+        return failedUpdates;
     }
 
     @Override

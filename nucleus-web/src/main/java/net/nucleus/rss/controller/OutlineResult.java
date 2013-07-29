@@ -11,6 +11,7 @@ public class OutlineResult {
     private long id;
     private List<OutlineResult> children;
     private String title;
+    private int ordinal;
 
     public long getId() {
         return id;
@@ -34,5 +35,13 @@ public class OutlineResult {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getOrdinal() {
+        return ordinal;
+    }
+
+    public void setOrdinal(int ordinal) {
+        this.ordinal = ordinal;
     }
 }

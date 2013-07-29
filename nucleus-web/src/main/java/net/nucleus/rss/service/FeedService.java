@@ -21,6 +21,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -33,11 +34,11 @@ import java.util.Set;
 @Service
 public class FeedService {
     private static final Logger logger = LoggerFactory.getLogger(FeedService.class);
+    private static final int MAX_UPDATE_FAILED_COUNT = 5;
 
     private EntityManager entityManager;
     private FeedFetcher feedFetcher;
     private PlatformTransactionManager transactionManager;
-
 
     @Transactional(readOnly = true)
     public Optional<Outline> findRootOutlineLazy(User user) {
@@ -71,8 +72,9 @@ public class FeedService {
 
     @Transactional(readOnly = true)
     public Optional<Outline> findMostOutdatedFeed() {
-        List<Outline> outlines = entityManager.createQuery("select o from Outline o where o.type = :outlineType order by o.lastUpdateTime", Outline.class)
+        List<Outline> outlines = entityManager.createQuery("select o from Outline o where o.type = :outlineType and o.failedUpdates < :failedUpdates order by o.lastUpdateTime", Outline.class)
                 .setParameter("outlineType", OutlineType.FEED)
+                .setParameter("failedUpdates", MAX_UPDATE_FAILED_COUNT)
                 .setMaxResults(1)
                 .getResultList();
 
@@ -100,6 +102,10 @@ public class FeedService {
      * @throws FeedServiceException
      */
     public Set<FeedEntry> updateFeed(Outline outline) throws FeedServiceException {
+        if (outline.getFailedUpdates() > MAX_UPDATE_FAILED_COUNT) {
+            return Collections.emptySet();
+        }
+
         Set<FeedEntry> feedEntries = fetchFeedEntries(outline);
         updateFeedEntries(outline, feedEntries);
         return feedEntries;
@@ -111,7 +117,7 @@ public class FeedService {
     }
 
     @Autowired
-    @Qualifier("decorator")
+    @Qualifier("http")
     public void setFeedFetcher(FeedFetcher feedFetcher) {
         this.feedFetcher = feedFetcher;
     }
@@ -121,12 +127,26 @@ public class FeedService {
         this.transactionManager = transactionManager;
     }
 
-    private Set<FeedEntry> fetchFeedEntries(Outline outline) throws FeedServiceException {
+    private Set<FeedEntry> fetchFeedEntries(Outline outline) {
         try {
             return feedFetcher.fetch(outline);
         } catch (FeedFetcherException e) {
-            throw new FeedServiceException("Failed to import entries.", e);
+            reportFailedUpdate(outline);
+            return Collections.emptySet();
         }
+    }
+
+    private void reportFailedUpdate(final Outline outline) {
+        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+        transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+            @Override
+            protected void doInTransactionWithoutResult(TransactionStatus status) {
+                entityManager.createQuery("update Outline o set o.failedUpdates = :failedUpdates where o.id = :id")
+                        .setParameter("id", outline.getId())
+                        .setParameter("failedUpdates", outline.getFailedUpdates() + 1)
+                        .executeUpdate();
+            }
+        });
     }
 
     private void updateFeedEntries(final Outline outline, final Set<FeedEntry> feedEntries) {
@@ -142,7 +162,7 @@ public class FeedService {
 
                 persistNewFeedEntries(feedEntries, latestFeedEntries);
 
-                entityManager.createQuery("update Outline o set o.lastUpdateTime = :lastUpdateTime where o.id = :id")
+                entityManager.createQuery("update Outline o set o.lastUpdateTime = :lastUpdateTime, o.failedUpdates = 0 where o.id = :id")
                         .setParameter("id", outline.getId())
                         .setParameter("lastUpdateTime", new Date())
                         .executeUpdate();
