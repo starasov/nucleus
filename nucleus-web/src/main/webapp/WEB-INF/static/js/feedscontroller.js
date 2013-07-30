@@ -61,7 +61,14 @@ function FeedsController($scope, $http, $interpolate) {
     };
 
     $scope.toggleEntryDescription = function (entry) {
-        $("#" + entry.id).find('.feed-entry-long').toggle();
+        var visible = entry.fullDescriptionVisible;
+        if (!visible) {
+            $scope.entries.forEach(function (e) {
+                e.fullDescriptionVisible = false;
+            });
+        }
+
+        entry.fullDescriptionVisible = !visible;
     };
 
     $scope.markEntryAsRead = function (entry) {

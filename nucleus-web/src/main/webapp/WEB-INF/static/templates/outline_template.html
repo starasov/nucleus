@@ -7,7 +7,10 @@
 </li>
 
 <!-- Outline folder element (has children and title) -->
-<li class="outline-header outline-element" ng-if="c.children.length">{{c.title}}</li>
-<ul class="nav nav-list" ng-if="c.children.length">
+<li class="outline-header outline-element" ng-if="c.children.length" ng-click="processOutlineClick(c)">
+    <i class="icon-caret-down"></i> {{c.title}}
+</li>
+
+<ul class="nav nav-list" ng-if="c.children.length" ng-hide="c.hidden">
     <li ng-repeat="c in c.children | orderBy:'ordinal'" ng-include="outlineTemplate"></li>
 </ul>

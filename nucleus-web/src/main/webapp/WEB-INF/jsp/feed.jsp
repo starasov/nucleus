@@ -137,7 +137,8 @@
                             Feed entry description contains 'unsafe' contents, but they are sanitized on server-side,
                             so we can assume that it's safe to show the contents as is.
                         -->
-                        <div class="feed-entry-long" ng-bind-html-unsafe="entry.fullDescription"></div>
+                        <div class="feed-entry-long" ng-bind-html-unsafe="entry.fullDescription"
+                             ng-show="entry.fullDescriptionVisible"></div>
                     </div>
                 </div>
             </div>

@@ -24,3 +24,10 @@
 * [Backend] Review HTML sanitizer configuration
 
 * [Test] http://localhost:8080/auth/google_callback?email=tarasov.inf@gmail.com
+
+* Root overview
+* Inline feeds loading - no navigation
+* Target feed in URL
+* Proper scheduling for updates - should be dynamic based on a feed
+* Proper feed cleanup
+* Toggle active feed state

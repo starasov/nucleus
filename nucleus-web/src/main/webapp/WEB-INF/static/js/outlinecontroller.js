@@ -17,6 +17,10 @@ function OutlineController($scope, $http, $interpolate) {
         return outline.id == $scope.feedId ? "outline-active" : "outline-header";
     };
 
+    $scope.processOutlineClick = function (outline) {
+        outline.hidden = !outline.hidden;
+    };
+
     $(window).resize(function () {
         $scope.fitScreen();
     });
